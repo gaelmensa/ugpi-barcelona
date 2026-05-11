@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Methodology - UGPI Barcelona</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:                    #121414;
+      --surface-container:     #1e2020;
+      --surface-high:          #282a2b;
+      --surface-highest:       #333535;
+      --primary:               #b4ccbb;
+      --secondary:             #a0d48d;
+      --on-surface:            #e2e2e2;
+      --on-surface-variant:    #c2c8c2;
+      --outline:               #8c928c;
+      --outline-variant:       #424843;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--on-surface);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── UTILITY ────────────────────────────────── */
+    .label-mono {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+    }
+
+    /* ── SCROLL REVEAL ──────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+
+    /* ─────────────────────────────────── NAV ───── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      background: rgba(18,20,20,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .nav-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--on-surface);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a.active { color: var(--primary); }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      background: var(--secondary);
+      color: #0b3903;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 9999px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-nav:hover { background: #bcf1a6; transform: translateY(-1px); }
+
+    /* ─────────────────────────────────── HERO ───── */
+    #hero {
+      position: relative;
+      min-height: 72vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 128px 48px 96px;
+      overflow: hidden;
+    }
+
+    .hero-glow-a {
+      position: absolute;
+      top: -15%; left: -8%;
+      width: 65vw; height: 65vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,204,187,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-glow-b {
+      position: absolute;
+      bottom: -20%; right: -5%;
+      width: 45vw; height: 45vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(160,212,141,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-inner { position: relative; max-width: 1200px; }
+
+    .hero-label {
+      margin-bottom: 28px;
+    }
+
+    .hero-display {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: var(--on-surface);
+      max-width: 820px;
+      margin-bottom: 36px;
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 27px;
+      color: var(--on-surface-variant);
+      max-width: 560px;
+      margin-bottom: 48px;
+    }
+
+    .hero-pills-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border: 1px solid var(--outline-variant);
+      border-radius: 9999px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+    .stat-pill-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--secondary);
+      flex-shrink: 0;
+    }
+
+    /* ──────────────────────────── FORMULA ─────── */
+    #formula {
+      background: var(--surface-container);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 128px 48px;
+    }
+
+    .formula-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+
+    .formula-section-header { display: flex; flex-direction: column; gap: 0; }
+
+    .formula-hero-card {
+      background: rgba(0,0,0,0.48);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 20px;
+      padding: 72px 48px 56px;
+      text-align: center;
+    }
+
+    .formula-hero-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(22px, 4vw, 56px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 40px;
+      white-space: nowrap;
+    }
+
+    .f-heat   { color: #ff7043; }
+    .f-green  { color: #a0d48d; }
+    .f-social { color: #7eb8d4; }
+
+    .formula-weights-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .weight-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 20px;
+      border-radius: 9999px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .weight-heat   { background: rgba(255,112,67,0.12);  border: 1px solid rgba(255,112,67,0.32);  color: #ff7043; }
+    .weight-green  { background: rgba(160,212,141,0.12); border: 1px solid rgba(160,212,141,0.32); color: #a0d48d; }
+    .weight-social { background: rgba(126,184,212,0.12); border: 1px solid rgba(126,184,212,0.32); color: #7eb8d4; }
+
+    .formula-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .formula-col-left {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .formula-col-left .formula-hero-card {
+      text-align: left;
+      padding: 40px 36px 36px;
+    }
+
+    .formula-col-left .formula-hero-text {
+      font-size: clamp(17px, 2.2vw, 30px);
+      white-space: normal;
+      text-align: left;
+      margin-bottom: 28px;
+    }
+
+    .formula-col-left .formula-weights-row {
+      justify-content: flex-start;
+    }
+
+    .formula-explain {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--on-surface-variant);
+      max-width: 700px;
+    }
+
+    /* ── LAYER STATS GRID ── */
+    .layer-card-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 24px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+
+    .layer-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .layer-stat-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--outline);
+    }
+
+    .layer-stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--on-surface);
+      line-height: 1.2;
+    }
+
+    /* Score card */
+    .score-card { padding: 40px; }
+
+    .tract-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--outline);
+      margin-bottom: 32px;
+    }
+
+    .score-bar-wrap { margin-bottom: 24px; }
+
+    .score-bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .score-bar-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--on-surface-variant);
+    }
+    .score-bar-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+
+    .score-bar-track {
+      height: 7px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .fill-heat   { background: linear-gradient(90deg, #ff7850, #ffb347); }
+    .fill-green  { background: linear-gradient(90deg, #5cba6e, #a0d48d); }
+    .fill-social { background: linear-gradient(90deg, #6ea8c0, #adceb8); }
+
+    .ugpi-result {
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid var(--outline-variant);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .ugpi-result-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+    .ugpi-result-score {
+      font-family: 'Inter', sans-serif;
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--secondary);
+      line-height: 1;
+    }
+
+    /* ──────────────────────────── FOOTER ─────── */
+    footer {
+      padding: 40px 48px;
+      background: var(--surface-container);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.01em;
+      color: var(--outline);
+      max-width: 540px;
+    }
+
+    .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+
+    .footer-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--outline);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--primary); }
+
+    /* ──────────────────────────── DATA LAYERS ─── */
+    #data-layers {
+      padding: 128px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .data-layers-header {
+      margin-bottom: 72px;
+    }
+
+    .data-layers-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--on-surface);
+      margin-top: 20px;
+    }
+
+    /* slide-in variants */
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-48px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(48px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible,
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* layer card */
+    .layer-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: var(--surface-container);
+      margin-bottom: 32px;
+    }
+
+    .layer-card-left {
+      padding: 52px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .layer-card-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--outline);
+    }
+
+    .layer-card-source-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 14px;
+      border: 1px solid rgba(160,212,141,0.35);
+      border-radius: 9999px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      width: fit-content;
+    }
+    .layer-card-source-pill::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--secondary);
+      flex-shrink: 0;
+    }
+
+    .layer-card-icon {
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .layer-card-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--on-surface);
+      line-height: 1.2;
+    }
+
+    .layer-card-desc {
+      font-size: 15px;
+      line-height: 25px;
+      color: var(--on-surface-variant);
+    }
+
+    .layer-card-spec {
+      background: rgba(0,0,0,0.30);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-family: 'Space Grotesk', monospace;
+      font-size: 12px;
+      line-height: 20px;
+      color: var(--primary);
+      white-space: pre-wrap;
+    }
+
+    .btn-explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 24px;
+      background: transparent;
+      color: var(--secondary);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(160,212,141,0.40);
+      border-radius: 9999px;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      width: fit-content;
+      margin-top: 4px;
+    }
+    .btn-explore:hover {
+      background: rgba(160,212,141,0.08);
+      border-color: var(--secondary);
+      transform: translateY(-1px);
+    }
+    .btn-explore svg { flex-shrink: 0; }
+
+    /* right side visualization panel */
+    .layer-card-right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.25);
+      border-left: 1px solid rgba(255,255,255,0.06);
+      min-height: 380px;
+      overflow: hidden;
+      padding: 40px;
+    }
+
+    /* ── THERMOMETER VIZ ── */
+    .thermo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+    }
+    .thermo-label-row {
+      display: flex;
+      justify-content: space-between;
+      width: 200px;
+    }
+    .thermo-label-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--on-surface-variant);
+    }
+    .thermo-bar-outer {
+      width: 200px;
+      height: 20px;
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.07);
+      overflow: hidden;
+      position: relative;
+    }
+    .thermo-bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #ff9a5c, #ff5722, #d32f2f);
+      width: 0;
+      transition: width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .thermo-temp-display {
+      font-family: 'Inter', sans-serif;
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, #ff9a5c, #ff5722);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .thermo-temp-unit {
+      font-size: 24px;
+      font-weight: 400;
+    }
+    .thermo-sublabel {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--outline);
+    }
+    .thermo-range-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      color: var(--outline);
+    }
+
+    /* ── NDVI GRADIENT VIZ ── */
+    .ndvi-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+    }
+    .ndvi-gradient-bar {
+      width: 280px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #795548, #827717, #8BC34A, #2E7D32);
+      position: relative;
+      box-shadow: 0 0 24px rgba(139,195,74,0.15);
+    }
+    .ndvi-cursor {
+      position: absolute;
+      top: -8px;
+      width: 3px;
+      height: 52px;
+      background: white;
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgba(255,255,255,0.6);
+      left: 8%;
+      transition: left 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .ndvi-labels-row {
+      display: flex;
+      justify-content: space-between;
+      width: 280px;
+    }
+    .ndvi-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--on-surface-variant);
+    }
+    .ndvi-val-display {
+      font-family: 'Inter', sans-serif;
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, #8BC34A, #2E7D32);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .ndvi-sublabel {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--outline);
+    }
+
+    /* ── DEMO BARS VIZ ── */
+    .demo-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 240px;
+    }
+    .demo-bar-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .demo-bar-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .demo-bar-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      color: var(--on-surface-variant);
+    }
+    .demo-bar-pct {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+    .demo-bar-track {
+      height: 8px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .demo-bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .fill-elderly  { background: linear-gradient(90deg, #6ea8c0, #adceb8); }
+    .fill-income   { background: linear-gradient(90deg, #a0d48d, #5cba6e); }
+    .fill-vuln     { background: linear-gradient(90deg, #e57373, #ef9a9a); }
+    .demo-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--on-surface);
+      letter-spacing: 0.01em;
+    }
+
+    /* viz background glow patches */
+    .viz-glow-heat {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 50%, rgba(255,87,34,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .viz-glow-ndvi {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 60%, rgba(46,125,50,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .viz-glow-social {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 40% 50%, rgba(110,168,192,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      #hero { padding-left: 24px; padding-right: 24px; }
+      #formula { padding: 72px 24px; }
+      .formula-columns { grid-template-columns: 1fr; gap: 40px; }
+      .formula-hero-text { white-space: normal; }
+      #data-layers { padding: 72px 24px; }
+      .layer-card { grid-template-columns: 1fr; }
+      .layer-card-right { min-height: 260px; border-left: none; border-top: 1px solid rgba(255,255,255,0.06); }
+      footer { padding: 32px 24px; }
+    }
+  
+#scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  z-index: 99999; width: 0%; pointer-events: none; transition: width 0.06s linear;
+}
+
+/* ── Nav dropdown ────────────────────────────────────────── */
+.nav-dd-item { position: relative; }
+.nav-dd-trigger { display: inline-flex !important; align-items: center; gap: 4px; cursor: pointer; }
+.nav-dd-chevron { transition: transform 0.2s; flex-shrink: 0; }
+.nav-dd-item:hover .nav-dd-chevron { transform: rotate(180deg); }
+.nav-dd {
+  position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  background: rgba(18,20,20,0.97);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.10); border-radius: 10px;
+  padding: 8px 0; min-width: 215px; list-style: none;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.55); z-index: 9999;
+}
+.nav-dd-item:hover .nav-dd {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dd li a {
+  display: flex !important; align-items: center; gap: 10px;
+  padding: 9px 18px !important;
+  font-family: 'Space Grotesk',sans-serif !important;
+  font-size: 12px !important; font-weight: 500 !important;
+  letter-spacing: 0.05em !important; text-transform: uppercase !important;
+  color: var(--on-surface-variant) !important;
+  transition: background 0.15s, color 0.15s !important;
+  text-decoration: none !important;
+}
+.nav-dd li a:hover { background: rgba(255,255,255,0.06) !important; color: var(--primary) !important; }
+.nav-dd-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── Methodology hero decoration ────────────────────────── */
+@media (min-width: 1040px) {
+  #hero .hero-inner { display: flex !important; align-items: center; gap: 80px; max-width:1280px !important; }
+  #hero .hero-text  { flex: 0 0 500px; }
+  #hero .meth-deco-wrap { flex: 1; display: flex; justify-content: center; align-items: center; }
+}
+@media (max-width: 1039px) { .meth-deco-wrap { display: none; } }
+@keyframes pipe-flow {
+  0%   { stroke-dashoffset: 24; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes node-glow {
+  0%,100% { filter: drop-shadow(0 0 6px currentColor); opacity: 0.85; }
+  50%      { filter: drop-shadow(0 0 14px currentColor); opacity: 1; }
+}
+@keyframes result-pulse {
+  0%,100% { r: 28; }
+  50%      { r: 31; }
+}
+</style>
+</head>
+<body>
+<div id="scroll-progress"></div>
+
+  <!-- NAV ══════════════════════════════════════════ -->
+  <nav>
+    <a href="index.html" class="nav-brand">UGPI Barcelona</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Index</a></li>
+      <li class="nav-dd-item">
+        <a href="methodology.html" class="nav-dd-trigger active">Methodology
+          <svg class="nav-dd-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="2,3 5,7 8,3"/></svg>
+        </a>
+        <ul class="nav-dd">
+          <li><a href="heat.html"><span class="nav-dd-dot" style="background:#ff7043"></span>Heat Layer</a></li>
+          <li><a href="green.html"><span class="nav-dd-dot" style="background:#a0d48d"></span>Green Space</a></li>
+          <li><a href="social.html"><span class="nav-dd-dot" style="background:#7eb8d4"></span>Social Vulnerability</a></li>
+        </ul>
+      </li>
+      <li><a href="validation.html">Validation</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="ugpi_interactive_map.html" class="btn-nav">
+      Launch Map
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M2 10L10 2M10 2H4M10 2V8"/>
+      </svg>
+    </a>
+  </nav>
+
+  <!-- HERO ═════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-glow-a"></div>
+    <div class="hero-glow-b"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+
+      <div class="hero-label reveal">
+        <span class="label-mono">Methodology</span>
+      </div>
+
+      <h1 class="hero-display reveal">
+        How we measure<br>greening priority.
+      </h1>
+
+      <p class="hero-subtitle reveal">
+        The UGPI score combines three independent satellite and census data streams into a single normalized index for every census tract in Barcelona.
+      </p>
+
+      <div class="hero-pills-row reveal">
+        <div class="stat-pill">
+          <span class="stat-pill-dot"></span>
+          Summer 2023 Analysis
+        </div>
+        <div class="stat-pill">
+          <span class="stat-pill-dot"></span>
+          1,068 Census Tracts
+        </div>
+      </div>
+
+      </div><!-- /hero-text -->
+
+          <div class="meth-deco-wrap" aria-hidden="true">
+            <svg viewBox="0 0 320 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:440px;height:465px">
+              <!-- Source nodes -->
+              <!-- Landsat -->
+              <rect x="18" y="20" width="80" height="52" rx="8"
+                    fill="rgba(255,112,67,0.10)" stroke="rgba(255,112,67,0.55)" stroke-width="1.5"
+                    style="animation:node-glow 3s ease-in-out infinite;color:#ff7043"/>
+              <text x="58" y="42" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" font-weight="700" fill="#ff7043" letter-spacing="0.05em">LANDSAT</text>
+              <text x="58" y="57" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.45)">30 m LST</text>
+
+              <!-- Sentinel-2 -->
+              <rect x="120" y="20" width="80" height="52" rx="8"
+                    fill="rgba(100,187,106,0.10)" stroke="rgba(100,187,106,0.55)" stroke-width="1.5"
+                    style="animation:node-glow 3.4s ease-in-out infinite 0.6s;color:#64bb6a"/>
+              <text x="160" y="42" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" font-weight="700" fill="#64bb6a" letter-spacing="0.05em">SENTINEL-2</text>
+              <text x="160" y="57" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.45)">10 m NDVI</text>
+
+              <!-- Idescat -->
+              <rect x="222" y="20" width="80" height="52" rx="8"
+                    fill="rgba(126,184,212,0.10)" stroke="rgba(126,184,212,0.55)" stroke-width="1.5"
+                    style="animation:node-glow 3.8s ease-in-out infinite 1.2s;color:#7eb8d4"/>
+              <text x="262" y="42" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" font-weight="700" fill="#7eb8d4" letter-spacing="0.05em">IDESCAT</text>
+              <text x="262" y="57" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.45)">Census data</text>
+
+              <!-- Down arrows from sources -->
+              <line x1="58"  y1="72" x2="58"  y2="108" stroke="rgba(255,112,67,0.50)" stroke-width="1.5" stroke-dasharray="4 3" style="animation:pipe-flow 1.2s linear infinite"/>
+              <line x1="160" y1="72" x2="160" y2="108" stroke="rgba(100,187,106,0.50)" stroke-width="1.5" stroke-dasharray="4 3" style="animation:pipe-flow 1.2s linear infinite 0.4s"/>
+              <line x1="262" y1="72" x2="262" y2="108" stroke="rgba(126,184,212,0.50)" stroke-width="1.5" stroke-dasharray="4 3" style="animation:pipe-flow 1.2s linear infinite 0.8s"/>
+
+              <!-- Normalize boxes -->
+              <rect x="20"  y="108" width="76" height="34" rx="6" fill="rgba(255,112,67,0.07)"  stroke="rgba(255,112,67,0.30)"  stroke-width="1"/>
+              <text x="58"  y="129" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.55)">Normalize 1–10</text>
+              <rect x="122" y="108" width="76" height="34" rx="6" fill="rgba(100,187,106,0.07)" stroke="rgba(100,187,106,0.30)" stroke-width="1"/>
+              <text x="160" y="129" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.55)">Normalize 1–10</text>
+              <rect x="224" y="108" width="76" height="34" rx="6" fill="rgba(126,184,212,0.07)" stroke="rgba(126,184,212,0.30)" stroke-width="1"/>
+              <text x="262" y="129" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.55)">Normalize 1–10</text>
+
+              <!-- Converging lines to center -->
+              <polyline points="58,142 58,195 160,195"  stroke="rgba(180,180,180,0.25)" stroke-width="1.5" stroke-dasharray="4 3" style="animation:pipe-flow 1.4s linear infinite"/>
+              <line x1="160" y1="142" x2="160" y2="195" stroke="rgba(180,180,180,0.30)" stroke-width="1.5" stroke-dasharray="4 3" style="animation:pipe-flow 1.4s linear infinite 0.3s"/>
+              <polyline points="262,142 262,195 160,195" stroke="rgba(180,180,180,0.25)" stroke-width="1.5" stroke-dasharray="4 3" style="animation:pipe-flow 1.4s linear infinite 0.6s"/>
+
+              <!-- Weighted average box -->
+              <rect x="80" y="195" width="160" height="38" rx="8"
+                    fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.20)" stroke-width="1.5"/>
+              <text x="160" y="210" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" font-weight="600" fill="rgba(255,255,255,0.70)" letter-spacing="0.04em">WEIGHTED AVERAGE</text>
+              <text x="160" y="224" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.35)">33% &nbsp;·&nbsp; 33% &nbsp;·&nbsp; 34%</text>
+
+              <!-- Final arrow -->
+              <line x1="160" y1="233" x2="160" y2="267" stroke="rgba(254,204,92,0.60)" stroke-width="2" stroke-dasharray="5 3" style="animation:pipe-flow 1s linear infinite"/>
+
+              <!-- UGPI result node -->
+              <circle cx="160" cy="295" r="28" fill="rgba(254,204,92,0.10)" stroke="rgba(254,204,92,0.65)" stroke-width="2" style="animation:result-pulse 2.5s ease-in-out infinite"/>
+              <text x="160" y="291" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#fecc5c">UGPI</text>
+              <text x="160" y="306" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(254,204,92,0.60)">Score 1–10</text>
+            </svg>
+          </div>
+
+    </div>
+  </section>
+
+  <!-- FORMULA ══════════════════════════════════════ -->
+  <section id="formula">
+    <div class="formula-inner">
+
+      <div class="formula-section-header reveal">
+        <span class="label-mono">The Index</span>
+      </div>
+
+      <!-- Two-column layout: formula + text left, score card right -->
+      <div class="formula-columns">
+
+        <!-- Left column: formula card + explanatory text -->
+        <div class="formula-col-left reveal">
+          <div class="formula-hero-card">
+            <div class="formula-hero-text">
+              UGPI = w&#8321; · <span class="f-heat">Heat</span> + w&#8322; · <span class="f-green">Green</span> + w&#8323; · <span class="f-social">Social</span>
+            </div>
+            <div class="formula-weights-row">
+              <span class="weight-pill weight-heat">Heat 33%</span>
+              <span class="weight-pill weight-green">Green 33%</span>
+              <span class="weight-pill weight-social">Social 34%</span>
+            </div>
+          </div>
+          <p class="formula-explain">Each of the three component scores is independently derived from a different data source and normalized to a 1&ndash;10 scale, where 10 represents the highest priority. The final UGPI score is the weighted mean of the three components. By default all weights are equal at 33% each, reflecting a balanced approach to heat resilience, green space equity and social protection. However, weights are fully adjustable in the interactive map, allowing planners to reflect their specific policy priorities. A tract scoring 9 or above on the combined index represents a critical intervention zone where heat stress, lack of vegetation and social vulnerability all converge.</p>
+        </div>
+
+        <!-- Right column: example score card -->
+        <div class="glass-card score-card reveal reveal-delay-1">
+          <div class="tract-label">Example tract, Eixample T109</div>
+
+          <div class="score-bar-wrap">
+            <div class="score-bar-header">
+              <span class="score-bar-name">Heat Need</span>
+              <span class="score-bar-val">8.8 / 10</span>
+            </div>
+            <div class="score-bar-track">
+              <div class="score-bar-fill fill-heat" data-width="88"></div>
+            </div>
+          </div>
+
+          <div class="score-bar-wrap">
+            <div class="score-bar-header">
+              <span class="score-bar-name">Green Deficit</span>
+              <span class="score-bar-val">7.2 / 10</span>
+            </div>
+            <div class="score-bar-track">
+              <div class="score-bar-fill fill-green" data-width="72"></div>
+            </div>
+          </div>
+
+          <div class="score-bar-wrap">
+            <div class="score-bar-header">
+              <span class="score-bar-name">Social Vuln.</span>
+              <span class="score-bar-val">6.0 / 10</span>
+            </div>
+            <div class="score-bar-track">
+              <div class="score-bar-fill fill-social" data-width="60"></div>
+            </div>
+          </div>
+
+          <div class="ugpi-result">
+            <span class="ugpi-result-label">Final UGPI Score</span>
+            <span class="ugpi-result-score" id="ugpi-counter">0.0</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DATA LAYERS ══════════════════════════════════ -->
+  <section>
+    <div id="data-layers">
+
+      <div class="data-layers-header reveal">
+        <span class="label-mono">Data Layers</span>
+        <h2 class="data-layers-title">Three independent inputs.</h2>
+      </div>
+
+      <!-- Card 01 — Heat Layer -->
+      <div class="layer-card reveal-left">
+        <div class="layer-card-left">
+          <span class="layer-card-number">01</span>
+          <div class="layer-card-icon">🌡️</div>
+          <span class="layer-card-source-pill">Landsat LST</span>
+          <div class="layer-card-title">Heat Layer</div>
+          <p class="layer-card-desc">Land Surface Temperature from Landsat thermal infrared band, converted to Celsius at 30m resolution. Summer 2023 composite of June, July, August.</p>
+          <div class="layer-card-stats">
+            <div class="layer-stat">
+              <span class="layer-stat-label">Resolution</span>
+              <span class="layer-stat-value">30m</span>
+            </div>
+            <div class="layer-stat">
+              <span class="layer-stat-label">Period</span>
+              <span class="layer-stat-value">Jun–Aug 2023</span>
+            </div>
+          </div>
+          <a href="heat.html" class="btn-explore">
+            Explore this layer
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10L10 2M10 2H4M10 2V8"/></svg>
+          </a>
+        </div>
+        <div class="layer-card-right">
+          <div class="viz-glow-heat"></div>
+          <div class="thermo-wrap" id="thermo-viz">
+            <div class="thermo-sublabel">Land Surface Temperature</div>
+            <div class="thermo-temp-display" id="thermo-counter">29.1<span class="thermo-temp-unit">°C</span></div>
+            <div class="thermo-bar-outer">
+              <div class="thermo-bar-fill" id="thermo-fill"></div>
+            </div>
+            <div class="thermo-label-row">
+              <span class="thermo-label-val">29.1°C</span>
+              <span class="thermo-label-val">36.1°C</span>
+            </div>
+            <div class="thermo-range-label">Tract range across Barcelona</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 02 — Green Space Deficit -->
+      <div class="layer-card reveal-right">
+        <div class="layer-card-left">
+          <span class="layer-card-number">02</span>
+          <div class="layer-card-icon">🌿</div>
+          <span class="layer-card-source-pill">Sentinel-2 NDVI</span>
+          <div class="layer-card-title">Green Space Deficit</div>
+          <p class="layer-card-desc">Vegetation index from Sentinel-2 multispectral imagery at 10m resolution measuring existing greenery per census tract.</p>
+          <div class="layer-card-stats">
+            <div class="layer-stat">
+              <span class="layer-stat-label">Resolution</span>
+              <span class="layer-stat-value">10m</span>
+            </div>
+            <div class="layer-stat">
+              <span class="layer-stat-label">Source</span>
+              <span class="layer-stat-value">Sentinel-2 L2A</span>
+            </div>
+          </div>
+          <a href="green.html" class="btn-explore">
+            Explore this layer
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10L10 2M10 2H4M10 2V8"/></svg>
+          </a>
+        </div>
+        <div class="layer-card-right">
+          <div class="viz-glow-ndvi"></div>
+          <div class="ndvi-wrap" id="ndvi-viz">
+            <div class="ndvi-sublabel">Normalised Difference Vegetation Index</div>
+            <div class="ndvi-val-display" id="ndvi-counter">0.06</div>
+            <div class="ndvi-gradient-bar">
+              <div class="ndvi-cursor" id="ndvi-cursor"></div>
+            </div>
+            <div class="ndvi-labels-row">
+              <span class="ndvi-label">0.06 · sparse</span>
+              <span class="ndvi-label">0.57 · dense</span>
+            </div>
+            <div class="thermo-range-label">NDVI range across Barcelona tracts</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 03 — Social Vulnerability -->
+      <div class="layer-card reveal-left">
+        <div class="layer-card-left">
+          <span class="layer-card-number">03</span>
+          <div class="layer-card-icon">👥</div>
+          <span class="layer-card-source-pill">Census Data</span>
+          <div class="layer-card-title">Social Vulnerability</div>
+          <p class="layer-card-desc">Composite of elderly population share and disposable income per capita from Barcelona Municipal Register and Idescat.</p>
+          <div class="layer-card-stats">
+            <div class="layer-stat">
+              <span class="layer-stat-label">Data year</span>
+              <span class="layer-stat-value">2024</span>
+            </div>
+            <div class="layer-stat">
+              <span class="layer-stat-label">Source</span>
+              <span class="layer-stat-value">Idescat + BCN Open Data</span>
+            </div>
+          </div>
+          <a href="social.html" class="btn-explore">
+            Explore this layer
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10L10 2M10 2H4M10 2V8"/></svg>
+          </a>
+        </div>
+        <div class="layer-card-right">
+          <div class="viz-glow-social"></div>
+          <div class="demo-wrap" id="demo-viz">
+            <div class="demo-title">Vulnerability indicators</div>
+            <div class="demo-bar-row">
+              <div class="demo-bar-label-row">
+                <span class="demo-bar-name">Elderly share (&gt;65)</span>
+                <span class="demo-bar-pct" id="demo-pct-elderly">0%</span>
+              </div>
+              <div class="demo-bar-track">
+                <div class="demo-bar-fill fill-elderly" data-demo-width="68" id="demo-fill-elderly"></div>
+              </div>
+            </div>
+            <div class="demo-bar-row">
+              <div class="demo-bar-label-row">
+                <span class="demo-bar-name">Low income index</span>
+                <span class="demo-bar-pct" id="demo-pct-income">0%</span>
+              </div>
+              <div class="demo-bar-track">
+                <div class="demo-bar-fill fill-income" data-demo-width="54" id="demo-fill-income"></div>
+              </div>
+            </div>
+            <div class="demo-bar-row">
+              <div class="demo-bar-label-row">
+                <span class="demo-bar-name">Combined vuln. score</span>
+                <span class="demo-bar-pct" id="demo-pct-vuln">0%</span>
+              </div>
+              <div class="demo-bar-track">
+                <div class="demo-bar-fill fill-vuln" data-demo-width="81" id="demo-fill-vuln"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DATA SOURCES TABLE ═══════════════════════════ -->
+  <section style="background: var(--surface-container); border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 128px 48px;">
+    <div style="max-width:1200px; margin:0 auto;">
+      <div class="reveal">
+        <span class="label-mono">Data Sources</span>
+        <h2 style="font-family:'Inter',sans-serif; font-size:clamp(32px,4vw,52px); font-weight:700; letter-spacing:-0.03em; line-height:1.05; color:var(--on-surface); margin-top:16px; margin-bottom:16px;">Technical specifications.</h2>
+        <p style="font-size:16px; line-height:1.75; color:var(--on-surface-variant); max-width:680px;">All three data sources used in the UGPI are publicly available at no cost. The analysis is fully reproducible from the raw downloads using the open-source Python pipeline in this repository.</p>
+      </div>
+      <div style="margin-top:48px; overflow-x:auto;" class="reveal">
+        <table style="width:100%; border-collapse:collapse; font-family:'Space Grotesk',sans-serif;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--outline-variant);">
+              <th style="padding:14px 20px; text-align:left; font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--outline);">Layer</th>
+              <th style="padding:14px 20px; text-align:left; font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--outline);">Source</th>
+              <th style="padding:14px 20px; text-align:left; font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--outline);">Bands / Fields</th>
+              <th style="padding:14px 20px; text-align:left; font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--outline);">Resolution</th>
+              <th style="padding:14px 20px; text-align:left; font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--outline);">Period</th>
+              <th style="padding:14px 20px; text-align:left; font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--outline);">Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <td style="padding:16px 20px; font-size:13px; font-weight:600; color:#ff7043;">Heat</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant);">Landsat Collection 1 Level-1 (NASA Earthdata)</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant); font-family:'Space Grotesk',monospace;">B10 Thermal Infrared</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant);">30 m</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant);">Jun-Aug 2023</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--secondary); font-weight:600;">Free</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <td style="padding:16px 20px; font-size:13px; font-weight:600; color:#a0d48d;">Green Space</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant);">Copernicus Sentinel-2 L2A (CDSE API)</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant); font-family:'Space Grotesk',monospace;">B8 (NIR) + B4 (Red)</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant);">10 m</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant);">Jun-Aug 2023</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--secondary); font-weight:600;">Free</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <td style="padding:16px 20px; font-size:13px; font-weight:600; color:#7eb8d4;">Social</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant);">Idescat Municipal Register + BCN Open Data</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant); font-family:'Space Grotesk',monospace;">Age, Income per capita</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant);">Census tract</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant);">2024 / 2022</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--secondary); font-weight:600;">Free</td>
+            </tr>
+            <tr>
+              <td style="padding:16px 20px; font-size:13px; font-weight:600; color:var(--on-surface);">Boundaries</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant);">ICGC Census Tract Shapefile</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant); font-family:'Space Grotesk',monospace;">MUNICIPI = 080193</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant);">1:5,000</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--on-surface-variant);">Jan 2025</td>
+              <td style="padding:16px 20px; font-size:13px; color:var(--secondary); font-weight:600;">Free</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIMITATIONS ═══════════════════════════════════ -->
+  <section style="padding: 128px 48px;">
+    <div style="max-width:1200px; margin:0 auto;">
+      <div class="reveal">
+        <span class="label-mono">Limitations</span>
+        <h2 style="font-family:'Inter',sans-serif; font-size:clamp(32px,4vw,52px); font-weight:700; letter-spacing:-0.03em; line-height:1.05; color:var(--on-surface); margin-top:16px; margin-bottom:16px;">What this tool does not do.</h2>
+        <p style="font-size:16px; line-height:1.75; color:var(--on-surface-variant); max-width:680px;">Transparency about limitations is part of responsible data science. The UGPI is a planning decision support tool, not a predictive model. Users should understand its assumptions before drawing conclusions.</p>
+      </div>
+      <div style="display:grid; grid-template-columns: repeat(2,1fr); gap:24px; margin-top:48px;">
+        <div class="glass-card reveal" style="padding:36px 32px; display:flex; flex-direction:column; gap:12px;">
+          <p style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--primary);">Data period</p>
+          <p style="font-size:14px; line-height:22px; color:var(--on-surface-variant);">All satellite data is from summer 2023, the most recent complete season available at time of analysis. Scores do not reflect very recent greening interventions or extreme weather events after August 2023. The index should be refreshed annually with each new summer satellite season.</p>
+        </div>
+        <div class="glass-card reveal reveal-delay-1" style="padding:36px 32px; display:flex; flex-direction:column; gap:12px;">
+          <p style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--primary);">LST vs air temperature</p>
+          <p style="font-size:14px; line-height:22px; color:var(--on-surface-variant);">Land Surface Temperature (LST) measures the thermal emission of ground surfaces, not the air temperature experienced by residents. LST is a reliable proxy for Urban Heat Island intensity but should not be read as a direct measure of felt heat stress, which also depends on wind, humidity and shade.</p>
+        </div>
+        <div class="glass-card reveal" style="padding:36px 32px; display:flex; flex-direction:column; gap:12px;">
+          <p style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--primary);">Social indicators</p>
+          <p style="font-size:14px; line-height:22px; color:var(--on-surface-variant);">The social vulnerability composite uses two indicators: elderly share and income. Other relevant factors -- disability, immigration status, housing type, social isolation -- are not included due to data availability at census tract level. A richer social index would require access to administrative micro-data.</p>
+        </div>
+        <div class="glass-card reveal reveal-delay-1" style="padding:36px 32px; display:flex; flex-direction:column; gap:12px;">
+          <p style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--primary);">Equal weight default</p>
+          <p style="font-size:14px; line-height:22px; color:var(--on-surface-variant);">The default equal weighting (33/33/34) is a deliberate neutral starting point, not a validated policy prescription. The interactive tool exists precisely so that planners can override defaults with weights that reflect their specific mandate. No single weighting is objectively correct.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA ══════════════════════════════════════════ -->
+  <section style="padding: 128px 48px; text-align: center; position: relative; overflow: hidden; background: linear-gradient(180deg, transparent 0%, rgba(180,204,187,0.03) 50%, transparent 100%);">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 60vw; height: 60vw; border-radius: 50%; background: radial-gradient(circle, rgba(180,204,187,0.05) 0%, transparent 65%); pointer-events: none;"></div>
+    <div class="reveal" style="position: relative; max-width: 640px; margin: 0 auto;">
+      <span class="label-mono">Explore the Tool</span>
+      <h2 style="font-family:'Inter',sans-serif; font-size: clamp(36px,5vw,60px); font-weight:700; letter-spacing:-0.03em; line-height:1.05; color:var(--on-surface); margin: 16px 0 24px;">See every score, in context.</h2>
+      <p style="font-size:17px; line-height:28px; color:var(--on-surface-variant); margin-bottom: 48px;">Open the interactive map to explore all 1,068 census tracts, switch between layers, adjust weights and simulate greening interventions in real time.</p>
+      <div style="display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap;">
+        <a href="ugpi_interactive_map.html" style="display:inline-flex; align-items:center; gap:10px; padding:14px 32px; background:var(--primary); color:#203529; font-family:'Inter',sans-serif; font-size:15px; font-weight:600; letter-spacing:-0.01em; text-decoration:none; border-radius:9999px; transition:background 0.2s,transform 0.15s;" onmouseover="this.style.background='var(--secondary)';this.style.color='#0b3903';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--primary)';this.style.color='#203529';this.style.transform='translateY(0)'">
+          Launch Interactive Map
+          <svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10L10 2M10 2H4M10 2V8"/></svg>
+        </a>
+        <a href="index.html" style="display:inline-flex; align-items:center; gap:8px; padding:14px 28px; background:transparent; color:var(--on-surface-variant); font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; border:1px solid var(--outline-variant); border-radius:9999px; transition:background 0.2s,border-color 0.2s,color 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='var(--outline)';this.style.color='var(--on-surface)'" onmouseout="this.style.background='transparent';this.style.borderColor='var(--outline-variant)';this.style.color='var(--on-surface-variant)'">
+          Back to Overview
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER ═══════════════════════════════════════ -->
+  <footer>
+    <p class="footer-copy">
+      Urban Greening Priority Index. ESADE PAIBS Project 2025-2026. Built with Sentinel-2, Landsat and Barcelona Open Data. Summer 2023 (most recent complete season).
+    </p>
+    <div class="footer-links">
+      <a href="https://sentinel.esa.int/web/sentinel/missions/sentinel-2" target="_blank" rel="noopener">Sentinel-2 NDVI</a>
+      <a href="https://landsat.gsfc.nasa.gov/" target="_blank" rel="noopener">Landsat LST</a>
+      <a href="https://opendata-ajuntament.barcelona.cat/" target="_blank" rel="noopener">Open Data BCN</a>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.10 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // Slide-in from left/right
+    const slideObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          slideObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => slideObs.observe(el));
+
+    // Score bars + UGPI counter, triggered when card enters view
+    let barsAnimated = false;
+    const scoreCard = document.querySelector('.score-card');
+
+    const barObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !barsAnimated) {
+          barsAnimated = true;
+
+          // Animate bars with stagger
+          const bars = document.querySelectorAll('.score-bar-fill');
+          bars.forEach((bar, i) => {
+            setTimeout(() => {
+              bar.style.width = bar.dataset.width + '%';
+            }, i * 180);
+          });
+
+          // Count up UGPI after bars start
+          setTimeout(() => {
+            countUpDecimal(document.getElementById('ugpi-counter'), 7.3, 1400);
+          }, bars.length * 180 + 200);
+
+          barObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.45 });
+
+    if (scoreCard) barObs.observe(scoreCard);
+
+    function countUpDecimal(el, target, duration) {
+      const start = performance.now();
+      (function tick(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = (eased * target).toFixed(1);
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = target.toFixed(1);
+      })(start);
+    }
+
+    function countUpFixed(el, from, to, decimals, duration, suffix) {
+      const start = performance.now();
+      (function tick(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = (from + eased * (to - from)).toFixed(decimals) + (suffix || '');
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = to.toFixed(decimals) + (suffix || '');
+      })(start);
+    }
+
+    // ── Thermometer viz ──────────────────────────────
+    let thermoAnimated = false;
+    const thermoObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !thermoAnimated) {
+          thermoAnimated = true;
+          const fill = document.getElementById('thermo-fill');
+          const counter = document.getElementById('thermo-counter');
+          if (fill) setTimeout(() => { fill.style.width = '100%'; }, 200);
+          if (counter) {
+            setTimeout(() => {
+              const span = counter.querySelector('span');
+              const textNode = document.createTextNode('29.1');
+              counter.innerHTML = '';
+              counter.appendChild(textNode);
+              if (span) counter.appendChild(span);
+              const start = performance.now();
+              (function tick(now) {
+                const t = Math.min((now - start) / 1600, 1);
+                const eased = 1 - Math.pow(1 - t, 3);
+                textNode.textContent = (29.1 + eased * (36.1 - 29.1)).toFixed(1);
+                if (t < 1) requestAnimationFrame(tick);
+                else textNode.textContent = '36.1';
+              })(start);
+            }, 300);
+          }
+          thermoObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    const thermoEl = document.getElementById('thermo-viz');
+    if (thermoEl) thermoObs.observe(thermoEl);
+
+    // ── NDVI viz ─────────────────────────────────────
+    let ndviAnimated = false;
+    const ndviObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !ndviAnimated) {
+          ndviAnimated = true;
+          const cursor = document.getElementById('ndvi-cursor');
+          const counter = document.getElementById('ndvi-counter');
+          if (cursor) setTimeout(() => { cursor.style.left = 'calc(100% - 12px)'; }, 300);
+          if (counter) setTimeout(() => { countUpFixed(counter, 0.06, 0.57, 2, 1800, ''); }, 300);
+          ndviObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    const ndviEl = document.getElementById('ndvi-viz');
+    if (ndviEl) ndviObs.observe(ndviEl);
+
+    // ── Demo bars viz ────────────────────────────────
+    let demoAnimated = false;
+    const demoObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !demoAnimated) {
+          demoAnimated = true;
+          const bars = [
+            { fill: 'demo-fill-elderly', pct: 'demo-pct-elderly', w: 68, label: '68%' },
+            { fill: 'demo-fill-income',  pct: 'demo-pct-income',  w: 54, label: '54%' },
+            { fill: 'demo-fill-vuln',    pct: 'demo-pct-vuln',    w: 81, label: '8.1' }
+          ];
+          bars.forEach((b, i) => {
+            setTimeout(() => {
+              const fillEl = document.getElementById(b.fill);
+              const pctEl  = document.getElementById(b.pct);
+              if (fillEl) fillEl.style.width = b.w + '%';
+              if (pctEl)  setTimeout(() => { pctEl.textContent = b.label; }, 400);
+            }, i * 200);
+          });
+          demoObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    const demoEl = document.getElementById('demo-viz');
+    if (demoEl) demoObs.observe(demoEl);
+  </script>
+<script>
+(function(){
+  var b=document.getElementById('scroll-progress');
+  if(!b) return;
+  window.addEventListener('scroll',function(){
+    var s=document.documentElement.scrollTop||document.body.scrollTop;
+    var t=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+    b.style.width=(t>0?s/t*100:0)+'%';
+  },{passive:true});
+})();
+</script>
+</body>
+</html>

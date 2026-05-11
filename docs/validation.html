@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validation - UGPI Barcelona</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:                 #121414;
+      --surface-container:  #1e2020;
+      --surface-high:       #282a2b;
+      --primary:            #b4ccbb;
+      --secondary:          #a0d48d;
+      --on-surface:         #e2e2e2;
+      --on-surface-variant: #c2c8c2;
+      --outline:            #8c928c;
+      --outline-variant:    #424843;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--on-surface);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .label-mono {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(18,20,20,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .nav-brand {
+      font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-surface); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase; color: var(--on-surface-variant);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a.active { color: var(--primary); }
+    .btn-nav {
+      display: inline-flex; align-items: center; gap: 8px; padding: 9px 20px;
+      background: var(--secondary); color: #0b3903;
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none;
+      border-radius: 9999px; transition: background 0.2s, transform 0.15s;
+    }
+    .btn-nav:hover { background: #bcf1a6; transform: translateY(-1px); }
+
+    /* HERO */
+    #hero {
+      position: relative; min-height: 72vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 128px 48px 96px; overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; top: -15%; left: -8%;
+      width: 65vw; height: 65vw; border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,204,187,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; max-width: 1200px; }
+    .hero-display {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 700; line-height: 0.95; letter-spacing: -0.04em;
+      color: var(--on-surface); max-width: 820px; margin-bottom: 36px; margin-top: 28px;
+    }
+    .hero-subtitle {
+      font-size: 17px; font-weight: 400; line-height: 27px;
+      color: var(--on-surface-variant); max-width: 580px; margin-bottom: 48px;
+    }
+    .hero-pills-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .stat-pill {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px;
+      border: 1px solid var(--outline-variant); border-radius: 9999px;
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase; color: var(--on-surface-variant);
+    }
+    .stat-pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--secondary); flex-shrink: 0; }
+
+    /* SECTION SHARED */
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+
+    .section-label { margin-bottom: 20px; }
+
+    .section-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+      color: var(--on-surface); margin-bottom: 16px;
+    }
+    .section-subtitle {
+      font-size: 16px; line-height: 1.75;
+      color: var(--on-surface-variant); max-width: 680px;
+    }
+
+    /* EXPERT INTERVIEW */
+    #interview {
+      background: var(--surface-container);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 128px 48px;
+    }
+    .interview-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start;
+      margin-top: 56px;
+    }
+    .quote-block { display: flex; flex-direction: column; gap: 0; }
+    .quote-mark {
+      font-family: 'Inter', sans-serif; font-size: 80px; font-weight: 700;
+      color: var(--primary); opacity: 0.3; line-height: 0.7; margin-bottom: 20px;
+    }
+    .quote-text {
+      font-size: 20px; font-weight: 500; line-height: 32px;
+      color: var(--on-surface); font-style: italic; margin-bottom: 32px;
+    }
+    .quote-name {
+      font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+      color: var(--on-surface); margin-bottom: 4px;
+    }
+    .quote-role {
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase; color: var(--outline);
+    }
+
+    .interview-findings { display: flex; flex-direction: column; gap: 20px; }
+
+    .finding-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 24px 28px;
+    }
+    .finding-icon {
+      width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(180,204,187,0.10); border: 1px solid rgba(180,204,187,0.20);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .finding-body { display: flex; flex-direction: column; gap: 6px; }
+    .finding-title {
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      color: var(--on-surface);
+    }
+    .finding-desc {
+      font-size: 14px; line-height: 22px; color: var(--on-surface-variant);
+    }
+
+    /* PROBLEM STATEMENT */
+    #problem { padding: 128px 48px; }
+    .problem-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 56px;
+    }
+    .problem-card {
+      padding: 36px 32px; border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .problem-card-label {
+      font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--primary);
+    }
+    .problem-card-title {
+      font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
+      color: var(--on-surface); letter-spacing: -0.01em; line-height: 1.3;
+    }
+    .problem-card-desc {
+      font-size: 14px; line-height: 23px; color: var(--on-surface-variant);
+    }
+
+    /* COMPETITOR TABLE */
+    #competitors {
+      background: var(--surface-container);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 128px 48px;
+    }
+    .table-wrap { margin-top: 56px; overflow-x: auto; }
+    table {
+      width: 100%; border-collapse: collapse;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    thead tr {
+      border-bottom: 2px solid var(--outline-variant);
+    }
+    thead th {
+      padding: 14px 20px; text-align: left;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.10em;
+      text-transform: uppercase; color: var(--outline);
+      white-space: nowrap;
+    }
+    thead th:first-child { min-width: 180px; }
+    thead th.col-ugpi { color: var(--secondary); }
+    tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+    tbody td {
+      padding: 16px 20px; font-size: 13px;
+      color: var(--on-surface-variant); vertical-align: middle;
+    }
+    tbody td:first-child { font-weight: 600; color: var(--on-surface); }
+    .col-ugpi td, td.col-ugpi { color: var(--secondary) !important; }
+    .check { color: var(--secondary); font-size: 16px; font-weight: 700; }
+    .cross { color: var(--outline); font-size: 14px; }
+    .partial { color: #ffb347; font-size: 13px; }
+
+    .table-caption {
+      margin-top: 24px; font-size: 13px; line-height: 20px;
+      color: var(--outline); font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* VALUE PROPOSITION */
+    #value-prop { padding: 128px 48px; }
+    .vp-card {
+      margin-top: 56px; padding: 56px 52px;
+      border-left: 3px solid var(--secondary);
+    }
+    .vp-text {
+      font-family: 'Inter', sans-serif; font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 500; line-height: 1.55; letter-spacing: -0.01em;
+      color: var(--on-surface);
+    }
+    .vp-text .highlight { color: var(--secondary); font-weight: 600; }
+    .vp-text .underline-target { color: var(--primary); }
+
+    /* BUSINESS MODEL */
+    #business {
+      background: var(--surface-container);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 128px 48px;
+    }
+    .business-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      align-items: start; margin-top: 56px;
+    }
+    .biz-col { display: flex; flex-direction: column; gap: 24px; }
+    .biz-block { padding: 32px 36px; }
+    .biz-block-label {
+      font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--outline);
+      margin-bottom: 12px;
+    }
+    .biz-block-title {
+      font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 600;
+      color: var(--on-surface); letter-spacing: -0.01em; margin-bottom: 10px;
+    }
+    .biz-block-desc { font-size: 14px; line-height: 23px; color: var(--on-surface-variant); }
+
+    .cost-list { display: flex; flex-direction: column; gap: 12px; }
+    .cost-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .cost-row:last-child { border-bottom: none; }
+    .cost-label { font-size: 14px; color: var(--on-surface-variant); }
+    .cost-value {
+      font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600;
+      color: var(--secondary);
+    }
+
+    /* INNOVATION CLAIM */
+    #innovation { padding: 128px 48px; }
+    .innovation-inner { max-width: 1200px; margin: 0 auto; }
+    .innovation-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px;
+    }
+    .innov-card {
+      padding: 36px 32px;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-top: 3px solid var(--primary);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .innov-number {
+      font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--primary);
+    }
+    .innov-title {
+      font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600;
+      color: var(--on-surface); letter-spacing: -0.01em;
+    }
+    .innov-desc { font-size: 14px; line-height: 22px; color: var(--on-surface-variant); }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 48px; background: var(--surface-container);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 32px; flex-wrap: wrap;
+    }
+    .footer-copy {
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 400;
+      line-height: 20px; letter-spacing: 0.01em; color: var(--outline); max-width: 540px;
+    }
+    .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+    .footer-links a {
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase; color: var(--outline);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--primary); }
+
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      #hero, #interview, #problem, #competitors, #value-prop, #business, #innovation { padding: 72px 24px; }
+      .interview-grid, .business-grid { grid-template-columns: 1fr; gap: 40px; }
+      .problem-grid, .innovation-cards { grid-template-columns: 1fr; }
+      .table-wrap { font-size: 12px; }
+      footer { padding: 32px 24px; }
+    }
+  
+#scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  z-index: 99999; width: 0%; pointer-events: none; transition: width 0.06s linear;
+}
+
+/* ── Nav dropdown ────────────────────────────────────────── */
+.nav-dd-item { position: relative; }
+.nav-dd-trigger { display: inline-flex !important; align-items: center; gap: 4px; cursor: pointer; }
+.nav-dd-chevron { transition: transform 0.2s; flex-shrink: 0; }
+.nav-dd-item:hover .nav-dd-chevron { transform: rotate(180deg); }
+.nav-dd {
+  position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  background: rgba(18,20,20,0.97);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.10); border-radius: 10px;
+  padding: 8px 0; min-width: 215px; list-style: none;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.55); z-index: 9999;
+}
+.nav-dd-item:hover .nav-dd {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dd li a {
+  display: flex !important; align-items: center; gap: 10px;
+  padding: 9px 18px !important;
+  font-family: 'Space Grotesk',sans-serif !important;
+  font-size: 12px !important; font-weight: 500 !important;
+  letter-spacing: 0.05em !important; text-transform: uppercase !important;
+  color: var(--on-surface-variant) !important;
+  transition: background 0.15s, color 0.15s !important;
+  text-decoration: none !important;
+}
+.nav-dd li a:hover { background: rgba(255,255,255,0.06) !important; color: var(--primary) !important; }
+.nav-dd-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div id="scroll-progress"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-brand">UGPI Barcelona</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Index</a></li>
+      <li class="nav-dd-item">
+      <a href="methodology.html" class="nav-dd-trigger">Methodology
+        <svg class="nav-dd-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="2,3 5,7 8,3"/></svg>
+      </a>
+      <ul class="nav-dd">
+        <li><a href="heat.html"><span class="nav-dd-dot" style="background:#ff7043"></span>Heat Layer</a></li>
+        <li><a href="green.html"><span class="nav-dd-dot" style="background:#a0d48d"></span>Green Space</a></li>
+        <li><a href="social.html"><span class="nav-dd-dot" style="background:#7eb8d4"></span>Social Vulnerability</a></li>
+      </ul>
+    </li>
+      <li><a href="validation.html" class="active">Validation</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="ugpi_interactive_map.html" class="btn-nav">
+      Launch Map
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M2 10L10 2M10 2H4M10 2V8"/>
+      </svg>
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-label reveal">
+        <span class="label-mono">Business Validation</span>
+      </div>
+      <h1 class="hero-display reveal">
+        Built on evidence,<br>not assumption.
+      </h1>
+      <p class="hero-subtitle reveal">
+        The UGPI is validated through expert interviews, a rigorous competitive landscape analysis and a financially grounded business model designed for B2G deployment in Barcelona and beyond.
+      </p>
+      <div class="hero-pills-row reveal">
+        <div class="stat-pill"><span class="stat-pill-dot"></span>Expert Interview Conducted</div>
+        <div class="stat-pill"><span class="stat-pill-dot"></span>5 Alternatives Assessed</div>
+        <div class="stat-pill"><span class="stat-pill-dot"></span>0 Data Cost</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERT INTERVIEW -->
+  <section id="interview">
+    <div class="section-inner">
+      <div class="reveal">
+        <span class="label-mono">Expert Interview</span>
+        <h2 class="section-title" style="margin-top:16px;">Validated by a domain expert.</h2>
+        <p class="section-subtitle">In November 2024 we interviewed Davoud Omarzadeh, Research Manager at the Institut d'Estudis Espacials de Catalunya (IEEC), recommended by Professor Marc Herrera. The interview validated the core concept and shaped key design decisions in the UGPI.</p>
+      </div>
+      <div class="interview-grid">
+        <div class="quote-block reveal">
+          <span class="quote-mark">"</span>
+          <p class="quote-text">Combining Earth Observation data with social vulnerability indicators is exactly the kind of integrated approach that urban planning needs. City planners have had access to massive amounts of open data since 2020, but the bottleneck is synthesis, not data.</p>
+          <div style="margin-top: 8px;">
+            <p class="quote-name">Davoud Omarzadeh</p>
+            <p class="quote-role">Research Manager, IEEC, Institut d'Estudis Espacials de Catalunya</p>
+            <p class="quote-role" style="margin-top:4px;">Interview conducted November 2024</p>
+          </div>
+        </div>
+        <div class="interview-findings reveal reveal-delay-1">
+          <p style="font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--outline); margin-bottom:8px;">Key takeaways from the interview</p>
+          <div class="finding-item glass-card">
+            <div class="finding-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="finding-body">
+              <p class="finding-title">The data overload problem is real</p>
+              <p class="finding-desc">Planners are overwhelmed by siloed datasets from different departments. The UGPI's single composite score directly addresses this bottleneck by synthesising three independent data streams into one actionable output.</p>
+            </div>
+          </div>
+          <div class="finding-item glass-card">
+            <div class="finding-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <div class="finding-body">
+              <p class="finding-title">BCN Geoportal confirms the gap</p>
+              <p class="finding-desc">He confirmed that while the BCN Geoportal and ICGC are authoritative data sources, no existing tool integrates heat, vegetation and social data into a single priority index for planning decisions.</p>
+            </div>
+          </div>
+          <div class="finding-item glass-card">
+            <div class="finding-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="finding-body">
+              <p class="finding-title">Next validation step: Ajuntament de Barcelona</p>
+              <p class="finding-desc">He recommended presenting a complete tool proposal to the Ajuntament de Barcelona urban planning department and ASPB before approaching them for user testing, which shaped our build-first approach.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM VALIDATED -->
+  <section id="problem">
+    <div class="section-inner">
+      <div class="reveal">
+        <span class="label-mono">Problem Validation</span>
+        <h2 class="section-title" style="margin-top:16px;">A real problem, confirmed by data.</h2>
+        <p class="section-subtitle">The UGPI addresses a documented planning failure: resources are not systematically allocated to the neighbourhoods most exposed to heat stress and least equipped to cope with it.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card reveal">
+          <span class="problem-card-label">The Heat Gap</span>
+          <p class="problem-card-title">A 7 degree Celsius divide within the same city</p>
+          <p class="problem-card-desc">Land Surface Temperature analysis across 1,068 Barcelona census tracts shows a 7 degree Celsius difference between the coolest and hottest tracts. Dense urban cores in Sants-Montjuic and Nou Barris consistently register the highest temperatures, while park-adjacent or coastal tracts remain significantly cooler.</p>
+        </div>
+        <div class="problem-card reveal reveal-delay-1">
+          <span class="problem-card-label">The Vegetation Deficit</span>
+          <p class="problem-card-title">Barcelona's mean NDVI is critically low at 0.21</p>
+          <p class="problem-card-desc">Sentinel-2 satellite imagery shows Barcelona's average vegetation index at 0.21, far below recommended thresholds for urban heat mitigation. The most built-up central tracts fall as low as 0.06, offering almost no evapotranspirative cooling to residents who live there.</p>
+        </div>
+        <div class="problem-card reveal reveal-delay-2">
+          <span class="problem-card-label">The Equity Failure</span>
+          <p class="problem-card-title">The most vulnerable residents live in the hottest places</p>
+          <p class="problem-card-desc">Social vulnerability scores from Idescat census data reveal that high elderly population share and below-average income are concentrated in the same districts that record the highest heat and lowest vegetation scores. This is not coincidental; it reflects decades of unequal investment in public green infrastructure.</p>
+        </div>
+        <div class="problem-card reveal reveal-delay-3">
+          <span class="problem-card-label">The Decision Gap</span>
+          <p class="problem-card-title">Planners have data but no decision-ready synthesis</p>
+          <p class="problem-card-desc">The Ajuntament de Barcelona and ASPB have access to all three data streams independently, but no integrated tool that translates them into a prioritised list of census tracts ready for budget allocation. The UGPI closes this gap with a single, transparent, adjustable score.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETITOR ANALYSIS -->
+  <section id="competitors">
+    <div class="section-inner">
+      <div class="reveal">
+        <span class="label-mono">Competitive Landscape</span>
+        <h2 class="section-title" style="margin-top:16px;">No existing tool does all three.</h2>
+        <p class="section-subtitle">We assessed five alternative approaches that city planners in Barcelona currently use or could use. None combines heat, green space and social vulnerability into a single, interactive, decision-ready index at census tract level.</p>
+      </div>
+      <div class="table-wrap reveal">
+        <table>
+          <thead>
+            <tr>
+              <th>Tool / Approach</th>
+              <th>Heat layer</th>
+              <th>Green space</th>
+              <th>Social vuln.</th>
+              <th>Composite index</th>
+              <th>Interactive web</th>
+              <th>Adj. weights</th>
+              <th>Intervention sim.</th>
+              <th>Cost to city</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BCN Geoportal</td>
+              <td><span class="partial">Partial</span></td>
+              <td><span class="partial">Partial</span></td>
+              <td><span class="partial">Partial</span></td>
+              <td><span class="cross">No</span></td>
+              <td><span class="check">Yes</span></td>
+              <td><span class="cross">No</span></td>
+              <td><span class="cross">No</span></td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>ArcGIS / QGIS</td>
+              <td><span class="check">Yes</span></td>
+              <td><span class="check">Yes</span></td>
+              <td><span class="check">Yes</span></td>
+              <td><span class="cross">Manual only</span></td>
+              <td><span class="cross">No</span></td>
+              <td><span class="cross">No</span></td>
+              <td><span class="cross">No</span></td>
+              <td>EUR 1,000+ / yr</td>
+            </tr>
+            <tr>
+              <td>EEA Urban Atlas</td>
+              <td><span class="cross">No</span></td>
+              <td><span class="partial">Land use only</span></td>
+              <td><span class="cross">No</span></td>
+              <td><span class="cross">No</span></td>
+              <td><span class="partial">Limited</span></td>
+              <td><span class="cross">No</span></td>
+              <td><span class="cross">No</span></td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>Internal city reports</td>
+              <td><span class="partial">Sometimes</span></td>
+              <td><span class="partial">Sometimes</span></td>
+              <td><span class="partial">Sometimes</span></td>
+              <td><span class="cross">No</span></td>
+              <td><span class="cross">No</span></td>
+              <td><span class="cross">No</span></td>
+              <td><span class="cross">No</span></td>
+              <td>Staff time</td>
+            </tr>
+            <tr>
+              <td>Academic tools (MIT, UCL)</td>
+              <td><span class="partial">Research only</span></td>
+              <td><span class="partial">Research only</span></td>
+              <td><span class="partial">Research only</span></td>
+              <td><span class="partial">Prototype</span></td>
+              <td><span class="cross">No</span></td>
+              <td><span class="cross">No</span></td>
+              <td><span class="cross">No</span></td>
+              <td>Not available</td>
+            </tr>
+            <tr style="background:rgba(160,212,141,0.05); border-bottom: 2px solid rgba(160,212,141,0.2);">
+              <td style="color:var(--secondary) !important; font-weight:700;">UGPI Barcelona</td>
+              <td><span class="check">Yes</span></td>
+              <td><span class="check">Yes</span></td>
+              <td><span class="check">Yes</span></td>
+              <td><span class="check">Yes</span></td>
+              <td><span class="check">Yes</span></td>
+              <td><span class="check">Yes</span></td>
+              <td><span class="check">Yes</span></td>
+              <td style="color:var(--secondary); font-weight:600;">B2G SaaS</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-caption">Assessment based on publicly available tool documentation as of early 2025. Partial indicates that the capability exists within the platform but requires significant manual effort or expert GIS knowledge to implement.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE PROPOSITION -->
+  <section id="value-prop">
+    <div class="section-inner">
+      <div class="reveal">
+        <span class="label-mono">Value Proposition</span>
+        <h2 class="section-title" style="margin-top:16px;">One sentence. One tool.</h2>
+      </div>
+      <div class="vp-card glass-card reveal">
+        <p class="vp-text">
+          For <span class="highlight">Barcelona city planners</span> who need to allocate limited greening budgets equitably, the UGPI provides <span class="underline-target">a single actionable priority score for every census tract</span>, combining satellite heat data, vegetation indices and social vulnerability, unlike fragmented departmental data systems. It synthesises complex multi-source data into one <span class="highlight">decision-ready index</span> that any planner can use without GIS expertise.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUSINESS MODEL -->
+  <section id="business">
+    <div class="section-inner">
+      <div class="reveal">
+        <span class="label-mono">Business Model</span>
+        <h2 class="section-title" style="margin-top:16px;">Built to scale.</h2>
+        <p class="section-subtitle">The UGPI is designed as a B2G (Business-to-Government) SaaS product. The city pays an annual subscription for updated analysis, maintained infrastructure and simulation features. The underlying data is entirely free and open, making the cost structure exceptionally lean.</p>
+      </div>
+      <div class="business-grid">
+        <div class="biz-col">
+          <div class="biz-block glass-card reveal">
+            <p class="biz-block-label">Revenue model</p>
+            <p class="biz-block-title">B2G Annual Subscription</p>
+            <p class="biz-block-desc">The Ajuntament de Barcelona pays a yearly fee for: annual data refresh using the latest summer satellite season, maintained interactive tool, simulation and export features, and onboarding support for planning staff. Long-term vision: licence the model to other Mediterranean cities (Valencia, Marseille, Palermo) using the same methodology with local data inputs.</p>
+          </div>
+          <div class="biz-block glass-card reveal reveal-delay-1">
+            <p class="biz-block-label">Scalability</p>
+            <p class="biz-block-title">Any city with open EO data</p>
+            <p class="biz-block-desc">The three data sources used are globally available via free APIs. Copernicus covers all of Europe; Landsat covers the world. Adapting the UGPI pipeline to a new city requires updating the census boundary file and re-running the same Python scripts. The web tool requires no changes.</p>
+          </div>
+        </div>
+        <div class="biz-col">
+          <div class="biz-block glass-card reveal reveal-delay-1">
+            <p class="biz-block-label">Cost structure</p>
+            <div class="cost-list" style="margin-top: 8px;">
+              <div class="cost-row">
+                <span class="cost-label">Satellite data (Copernicus + Landsat)</span>
+                <span class="cost-value">0 EUR</span>
+              </div>
+              <div class="cost-row">
+                <span class="cost-label">Census data (Idescat + BCN Open Data)</span>
+                <span class="cost-value">0 EUR</span>
+              </div>
+              <div class="cost-row">
+                <span class="cost-label">Compute (analysis runs on standard laptop)</span>
+                <span class="cost-value">~0 EUR</span>
+              </div>
+              <div class="cost-row">
+                <span class="cost-label">Hosting (GitHub Pages)</span>
+                <span class="cost-value">0 EUR</span>
+              </div>
+              <div class="cost-row">
+                <span class="cost-label">Annual data refresh (estimated labour)</span>
+                <span class="cost-value">~20 hrs</span>
+              </div>
+              <div class="cost-row" style="border-top: 1px solid rgba(160,212,141,0.3); margin-top: 4px; padding-top: 16px;">
+                <span class="cost-label" style="font-weight:600; color:var(--on-surface);">Marginal cost per city per year</span>
+                <span class="cost-value" style="font-size:16px;">Near zero</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INNOVATION CLAIM -->
+  <section id="innovation">
+    <div class="innovation-inner">
+      <div class="reveal">
+        <span class="label-mono">Innovation</span>
+        <h2 class="section-title" style="margin-top:16px;">What makes UGPI genuinely new.</h2>
+        <p class="section-subtitle">Existing tools map heat, green space or social vulnerability in isolation. The UGPI is the first tool to formally integrate all three into a single composite index designed as an equitable planning directive for municipal decision-makers in Barcelona.</p>
+      </div>
+      <div class="innovation-cards">
+        <div class="innov-card reveal">
+          <span class="innov-number">Innovation 01</span>
+          <p class="innov-title">Three streams, one score</p>
+          <p class="innov-desc">No existing Barcelona planning tool combines thermal EO, vegetation EO and social census data. UGPI is the first to fuse them into a single, transparent, weighted index at census tract granularity.</p>
+        </div>
+        <div class="innov-card reveal reveal-delay-1">
+          <span class="innov-number">Innovation 02</span>
+          <p class="innov-title">Equity built into the index</p>
+          <p class="innov-desc">Social vulnerability is not an afterthought. It is a formal input to the score. This means a high-heat low-income tract is structurally prioritised over a high-heat high-income tract, embedding equity directly into resource allocation.</p>
+        </div>
+        <div class="innov-card reveal reveal-delay-2">
+          <span class="innov-number">Innovation 03</span>
+          <p class="innov-title">Planners set the policy weights</p>
+          <p class="innov-desc">The adjustable weight system allows city departments to reflect their current policy priorities in real time. A public health focus increases the social weighting; a climate resilience mandate increases the heat weighting. The data does not change. The interpretation does.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-copy">
+      Urban Greening Priority Index. ESADE PAIBS Project 2025-2026. Built with Sentinel-2, Landsat and Barcelona Open Data. Summer 2023 (most recent complete season).
+    </p>
+    <div class="footer-links">
+      <a href="methodology.html">Methodology</a>
+      <a href="about.html">About the Team</a>
+      <a href="ugpi_interactive_map.html">Launch Map</a>
+    </div>
+  </footer>
+
+  <script>
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+  </script>
+<script>
+(function(){
+  var b=document.getElementById('scroll-progress');
+  if(!b) return;
+  window.addEventListener('scroll',function(){
+    var s=document.documentElement.scrollTop||document.body.scrollTop;
+    var t=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+    b.style.width=(t>0?s/t*100:0)+'%';
+  },{passive:true});
+})();
+</script>
+</body>
+</html>

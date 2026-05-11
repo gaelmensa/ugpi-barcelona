@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heat Layer - UGPI Barcelona</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:                    #121414;
+      --surface-container:     #1e2020;
+      --surface-high:          #282a2b;
+      --surface-highest:       #333535;
+      --primary:               #b4ccbb;
+      --secondary:             #a0d48d;
+      --on-surface:            #e2e2e2;
+      --on-surface-variant:    #c2c8c2;
+      --outline:               #8c928c;
+      --outline-variant:       #424843;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--on-surface);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── UTILITY ── */
+    .label-mono {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .label-heat {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #ff7043;
+    }
+
+    .label-dot-heat {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ff7043;
+      flex-shrink: 0;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      background: rgba(18,20,20,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .nav-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--on-surface);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a.active { color: var(--primary); }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      background: var(--secondary);
+      color: #0b3903;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 9999px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-nav:hover { background: #bcf1a6; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 72vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 128px 48px 96px;
+      overflow: hidden;
+    }
+
+    .hero-glow-heat {
+      position: absolute;
+      top: -20%; right: -10%;
+      width: 60vw; height: 60vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,112,67,0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-inner { position: relative; max-width: 1200px; }
+
+    .hero-label { margin-bottom: 28px; }
+
+    .hero-display {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: var(--on-surface);
+      max-width: 820px;
+      margin-bottom: 36px;
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 27px;
+      color: var(--on-surface-variant);
+      max-width: 560px;
+      margin-bottom: 48px;
+    }
+
+    .hero-pills-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border: 1px solid var(--outline-variant);
+      border-radius: 9999px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    .stat-pill-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #ff7043;
+      flex-shrink: 0;
+    }
+
+    /* ── WHAT IT MEASURES ── */
+    #what {
+      background: var(--surface-container);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 128px 48px;
+    }
+
+    .what-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .what-col-left {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .what-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--on-surface);
+      margin-top: 16px;
+    }
+
+    .what-body {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--on-surface-variant);
+    }
+
+    /* Temp range card */
+    .temp-card {
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .temp-endpoints {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .temp-endpoint {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .temp-endpoint-right { align-items: flex-end; }
+
+    .temp-val {
+      font-family: 'Inter', sans-serif;
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .temp-val-cool { color: #ffb347; }
+    .temp-val-hot  { color: #ff5722; }
+
+    .temp-unit {
+      font-size: 24px;
+      font-weight: 400;
+      vertical-align: super;
+      line-height: 0;
+    }
+
+    .temp-endpoint-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--outline);
+    }
+
+    .temp-bar-outer {
+      height: 12px;
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+
+    .temp-bar-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #ffb347, #ff7043, #d32f2f);
+      transition: width 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .temp-average-block {
+      padding-top: 20px;
+      border-top: 1px solid var(--outline-variant);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .temp-average-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--outline);
+    }
+
+    .temp-average-val {
+      font-family: 'Inter', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--on-surface);
+      line-height: 1.1;
+    }
+
+    /* ── SCORE DISTRIBUTION ── */
+    #distribution {
+      padding: 128px 48px;
+    }
+
+    .distribution-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .dist-header {
+      margin-bottom: 56px;
+    }
+
+    .dist-section-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--on-surface);
+      margin-top: 20px;
+      margin-bottom: 16px;
+    }
+
+    .dist-subtitle {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--on-surface-variant);
+      max-width: 640px;
+    }
+
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 48px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 72px 1fr 56px;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .bar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .bar-track {
+      height: 28px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 6px;
+      transition: width 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .bar-count {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--outline);
+    }
+
+    /* ── KEY FINDINGS ── */
+    #findings {
+      background: var(--surface-container);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 128px 48px;
+    }
+
+    .findings-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .findings-header {
+      margin-bottom: 56px;
+    }
+
+    .findings-section-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--on-surface);
+      margin-top: 20px;
+    }
+
+    .findings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .finding-card {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-top: 3px solid #ff7043;
+      border-radius: 16px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .finding-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #ff7043;
+    }
+
+    .finding-text {
+      font-size: 15px;
+      line-height: 25px;
+      color: var(--on-surface-variant);
+    }
+
+    /* ── DATA SOURCE ── */
+    #data-source {
+      padding: 128px 48px;
+    }
+
+    .data-source-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .data-source-header {
+      margin-bottom: 56px;
+    }
+
+    .data-source-section-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--on-surface);
+      margin-top: 20px;
+    }
+
+    .source-card {
+      padding: 48px;
+      margin-bottom: 40px;
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px 48px;
+    }
+
+    .source-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .source-item-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--outline);
+    }
+
+    .source-item-value {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--on-surface);
+      line-height: 1.5;
+    }
+
+    .source-formula {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 15px;
+      font-weight: 600;
+      color: #ff9a5c;
+    }
+
+    .btn-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 24px;
+      background: transparent;
+      color: var(--on-surface-variant);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--outline-variant);
+      border-radius: 9999px;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-back:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--outline);
+      color: var(--on-surface);
+      transform: translateY(-1px);
+    }
+
+    .btn-launch {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 24px;
+      background: var(--secondary);
+      color: #0b3903;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 9999px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-launch:hover { background: #bcf1a6; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 48px;
+      background: var(--surface-container);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.01em;
+      color: var(--outline);
+      max-width: 540px;
+    }
+
+    .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+
+    .footer-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--outline);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--primary); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      #hero { padding: 96px 24px 72px; }
+      #what { padding: 72px 24px; }
+      .what-inner { grid-template-columns: 1fr; gap: 48px; }
+      #distribution { padding: 72px 24px; }
+      #findings { padding: 72px 24px; }
+      .findings-grid { grid-template-columns: 1fr; }
+      #data-source { padding: 72px 24px; }
+      .source-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 32px 24px; }
+    }
+  
+/* ── Scroll progress bar ──────────────────────────────────── */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, #ff7043 0%, #ff7043aa 100%);
+  z-index: 99999; width: 0%; pointer-events: none; transition: width 0.06s linear;
+}
+
+/* ── Area chart ─────────────────────────────────────────── */
+.area-chart-wrap { position: relative; overflow: visible; }
+.area-chart-svg  { width: 100%; height: auto; display: block; overflow: visible; }
+.ac-grid-line    { stroke: rgba(255,255,255,0.07); stroke-width: 1; }
+.ac-axis-label   { font-family: 'Inter',sans-serif; font-size: 11px; fill: rgba(255,255,255,0.35); }
+.ac-bar          { cursor: default; }
+.ac-bar:hover    { filter: brightness(1.2); }
+
+
+/* ── Heat hero decoration ───────────────────────────────── */
+.heat-deco-wrap {
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  width: 480px; height: 480px; pointer-events: none; opacity: 0.60;
+  overflow: visible;
+}
+@keyframes ring-expand {
+  0%   { r: 60; opacity: 0.5; }
+  80%  { r: 130; opacity: 0; }
+  100% { r: 130; opacity: 0; }
+}
+@keyframes sun-glow {
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(255,112,67,0.6)); }
+  50%       { filter: drop-shadow(0 0 24px rgba(255,112,67,0.9)); }
+}
+@keyframes ray-pulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+@keyframes city-heat {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.6; }
+}
+
+
+/* ── Nav dropdown ────────────────────────────────────────── */
+.nav-dd-item { position: relative; }
+.nav-dd-trigger { display: inline-flex !important; align-items: center; gap: 4px; cursor: pointer; }
+.nav-dd-chevron { transition: transform 0.2s; flex-shrink: 0; }
+.nav-dd-item:hover .nav-dd-chevron { transform: rotate(180deg); }
+.nav-dd {
+  position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  background: rgba(18,20,20,0.97);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.10); border-radius: 10px;
+  padding: 8px 0; min-width: 215px; list-style: none;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.55); z-index: 9999;
+}
+.nav-dd-item:hover .nav-dd {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dd li a {
+  display: flex !important; align-items: center; gap: 10px;
+  padding: 9px 18px !important;
+  font-family: 'Space Grotesk',sans-serif !important;
+  font-size: 12px !important; font-weight: 500 !important;
+  letter-spacing: 0.05em !important; text-transform: uppercase !important;
+  color: var(--on-surface-variant) !important;
+  transition: background 0.15s, color 0.15s !important;
+  text-decoration: none !important;
+}
+.nav-dd li a:hover { background: rgba(255,255,255,0.06) !important; color: var(--primary) !important; }
+.nav-dd-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div id="scroll-progress"></div>
+
+  <!-- NAV ══════════════════════════════════════════ -->
+  <nav>
+    <a href="index.html" class="nav-brand">UGPI Barcelona</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Index</a></li>
+      <li class="nav-dd-item">
+      <a href="methodology.html" class="nav-dd-trigger">Methodology
+        <svg class="nav-dd-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="2,3 5,7 8,3"/></svg>
+      </a>
+      <ul class="nav-dd">
+        <li><a href="heat.html"><span class="nav-dd-dot" style="background:#ff7043"></span>Heat Layer</a></li>
+        <li><a href="green.html"><span class="nav-dd-dot" style="background:#a0d48d"></span>Green Space</a></li>
+        <li><a href="social.html"><span class="nav-dd-dot" style="background:#7eb8d4"></span>Social Vulnerability</a></li>
+      </ul>
+    </li>
+      <li><a href="validation.html">Validation</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="ugpi_interactive_map.html" class="btn-nav">
+      Launch Map
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M2 10L10 2M10 2H4M10 2V8"/>
+      </svg>
+    </a>
+  </nav>
+
+  <!-- HERO ═════════════════════════════════════════ -->
+  <section id="hero" style="position:relative; overflow:hidden;">
+    <div class="hero-glow-heat"></div>
+    <div class="hero-inner">
+
+      <div class="hero-label reveal">
+        <span class="label-heat">
+          <span class="label-dot-heat"></span>
+          Heat Layer
+        </span>
+      </div>
+
+      <h1 class="hero-display reveal">
+        Urban heat islands<br>in Barcelona.
+      </h1>
+
+      <p class="hero-subtitle reveal">
+        Land Surface Temperature measured from Landsat satellite thermal infrared imagery, aggregated to census tract level for summer 2023.
+      </p>
+
+      <div class="hero-pills-row reveal">
+        <div class="stat-pill">
+          <span class="stat-pill-dot"></span>
+          Landsat Collection 1
+        </div>
+        <div class="stat-pill">
+          <span class="stat-pill-dot"></span>
+          30m Resolution
+        </div>
+      </div>
+
+
+        <div class="heat-deco-wrap" aria-hidden="true">
+          <svg viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;overflow:visible">
+            <!-- Pulsing rings -->
+            <circle cx="170" cy="155" r="60" fill="none" stroke="rgba(255,112,67,0.3)" stroke-width="1.5" style="animation:ring-expand 3s ease-out infinite"/>
+            <circle cx="170" cy="155" r="60" fill="none" stroke="rgba(255,112,67,0.25)" stroke-width="1" style="animation:ring-expand 3s ease-out infinite 1s"/>
+            <circle cx="170" cy="155" r="60" fill="none" stroke="rgba(255,112,67,0.2)" stroke-width="1" style="animation:ring-expand 3s ease-out infinite 2s"/>
+            <!-- Sun rays -->
+            <g style="transform-origin:170px 155px; animation:ray-pulse 2.5s ease-in-out infinite">
+              <line x1="170" y1="88"  x2="170" y2="72"  stroke="rgba(255,200,100,0.7)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="170" y1="222" x2="170" y2="238" stroke="rgba(255,200,100,0.7)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="103" y1="155" x2="87"  y2="155" stroke="rgba(255,200,100,0.7)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="237" y1="155" x2="253" y2="155" stroke="rgba(255,200,100,0.7)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="122" y1="108" x2="110" y2="96"  stroke="rgba(255,200,100,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="218" y1="108" x2="230" y2="96"  stroke="rgba(255,200,100,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="122" y1="202" x2="110" y2="214" stroke="rgba(255,200,100,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="218" y1="202" x2="230" y2="214" stroke="rgba(255,200,100,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+            <!-- Sun body -->
+            <circle cx="170" cy="155" r="44" fill="rgba(255,112,67,0.15)" style="animation:sun-glow 3s ease-in-out infinite"/>
+            <circle cx="170" cy="155" r="32" fill="rgba(255,140,67,0.25)"/>
+            <circle cx="170" cy="155" r="22" fill="rgba(255,160,60,0.6)"/>
+            <!-- City silhouette -->
+            <g style="animation:city-heat 4s ease-in-out infinite">
+              <rect x="30"  y="270" width="18" height="55" fill="rgba(255,112,67,0.25)" rx="1"/>
+              <rect x="52"  y="255" width="14" height="70" fill="rgba(255,112,67,0.20)" rx="1"/>
+              <rect x="70"  y="268" width="20" height="57" fill="rgba(255,112,67,0.28)" rx="1"/>
+              <rect x="94"  y="250" width="16" height="75" fill="rgba(255,112,67,0.22)" rx="1"/>
+              <rect x="114" y="262" width="12" height="63" fill="rgba(255,112,67,0.18)" rx="1"/>
+              <rect x="230" y="260" width="18" height="65" fill="rgba(255,112,67,0.20)" rx="1"/>
+              <rect x="252" y="248" width="14" height="77" fill="rgba(255,112,67,0.25)" rx="1"/>
+              <rect x="270" y="263" width="20" height="62" fill="rgba(255,112,67,0.22)" rx="1"/>
+              <rect x="294" y="255" width="16" height="70" fill="rgba(255,112,67,0.18)" rx="1"/>
+            </g>
+          </svg>
+        </div>
+
+    </div>
+  </section>
+
+  <!-- WHAT IT MEASURES ═════════════════════════════ -->
+  <section id="what">
+    <div class="what-inner">
+
+      <!-- Left: title + body text -->
+      <div class="what-col-left reveal">
+        <span class="label-mono">What It Measures</span>
+        <h2 class="what-title">What this layer captures</h2>
+        <p class="what-body">The heat layer measures the Land Surface Temperature (LST) of every census tract in Barcelona during the summer months of June, July and August 2023. LST is derived from the thermal infrared band (B10) of Landsat satellite imagery. Dense urban surfaces like asphalt and concrete absorb and re-emit heat, creating Urban Heat Islands that can be up to 7 degrees Celsius hotter than surrounding areas. Tracts with high heat scores consistently show high proportions of impervious surface cover and low vegetation density.</p>
+      </div>
+
+      <!-- Right: temperature range visualization -->
+      <div class="glass-card temp-card reveal reveal-delay-1" id="temp-viz">
+        <div class="temp-endpoints">
+          <div class="temp-endpoint">
+            <span class="temp-val temp-val-cool">29.1<span class="temp-unit">°C</span></span>
+            <span class="temp-endpoint-label">Coolest tract</span>
+          </div>
+          <div class="temp-endpoint temp-endpoint-right">
+            <span class="temp-val temp-val-hot" id="temp-hot-val">29.1<span class="temp-unit">°C</span></span>
+            <span class="temp-endpoint-label">Hottest tract</span>
+          </div>
+        </div>
+        <div class="temp-bar-outer">
+          <div class="temp-bar-fill" id="temp-bar"></div>
+        </div>
+        <div class="temp-average-block">
+          <span class="temp-average-label">City average</span>
+          <span class="temp-average-val">32.9<span class="temp-unit" style="font-size:16px; vertical-align:super; line-height:0;">°C</span></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCORE DISTRIBUTION ═══════════════════════════ -->
+  <section id="distribution">
+    <div class="distribution-inner">
+
+      <div class="dist-header reveal">
+        <span class="label-mono">Score Distribution</span>
+        <h2 class="dist-section-title">How tracts are ranked.</h2>
+        <p class="dist-subtitle">Raw LST values are normalized to a 1 to 10 scale using min-max normalization across all 1,068 census tracts. A score of 10 represents the hottest tract, a score of 1 represents the coolest.</p>
+      </div>
+
+      <div class="area-chart-wrap" id="bar-chart">
+<svg class="area-chart-svg" viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" id="area-chart-svg">
+<line class="ac-grid-line" x1="44" y1="144.0" x2="548" y2="144.0"/>
+<text class="ac-axis-label" x="38" y="148.0" text-anchor="end">110</text>
+<line class="ac-grid-line" x1="44" y1="100.0" x2="548" y2="100.0"/>
+<text class="ac-axis-label" x="38" y="104.0" text-anchor="end">220</text>
+<line class="ac-grid-line" x1="44" y1="56.0" x2="548" y2="56.0"/>
+<text class="ac-axis-label" x="38" y="60.0" text-anchor="end">330</text>
+<line class="ac-grid-line" x1="44" y1="12.0" x2="548" y2="12.0"/>
+<text class="ac-axis-label" x="38" y="16.0" text-anchor="end">440</text>
+<line stroke="rgba(255,255,255,0.15)" stroke-width="1" x1="44" y1="188" x2="548" y2="188"/>
+<line stroke="rgba(255,255,255,0.15)" stroke-width="1" x1="44" y1="12" x2="44" y2="188"/>
+<text class="ac-axis-label" x="296" y="220" text-anchor="middle" style="font-size:10px">Score (1 = Cool &nbsp;&nbsp; 10 = Hottest)</text>
+<rect class="ac-bar" x="50.7" y="188.0" width="42.6" height="0" rx="3" fill="#ffe4cc" data-y="187.6" data-h="0.4" style="transition:y 0.7s cubic-bezier(.23,1,.32,1) 0ms, height 0.7s cubic-bezier(.23,1,.32,1) 0ms;"><title>1&ndash;2: 1 tracts</title></rect>
+<rect class="ac-bar" x="106.7" y="188.0" width="42.6" height="0" rx="3" fill="#ffd0aa" data-y="186.4" data-h="1.6" style="transition:y 0.7s cubic-bezier(.23,1,.32,1) 60ms, height 0.7s cubic-bezier(.23,1,.32,1) 60ms;"><title>2&ndash;3: 4 tracts</title></rect>
+<rect class="ac-bar" x="162.7" y="188.0" width="42.6" height="0" rx="3" fill="#ffb880" data-y="182.8" data-h="5.2" style="transition:y 0.7s cubic-bezier(.23,1,.32,1) 120ms, height 0.7s cubic-bezier(.23,1,.32,1) 120ms;"><title>3&ndash;4: 13 tracts</title></rect>
+<rect class="ac-bar" x="218.7" y="188.0" width="42.6" height="0" rx="3" fill="#ff9a5c" data-y="150.4" data-h="37.6" style="transition:y 0.7s cubic-bezier(.23,1,.32,1) 180ms, height 0.7s cubic-bezier(.23,1,.32,1) 180ms;"><title>4&ndash;5: 94 tracts</title></rect>
+<rect class="ac-bar" x="274.7" y="188.0" width="42.6" height="0" rx="3" fill="#ff7d42" data-y="12.0" data-h="176.0" style="transition:y 0.7s cubic-bezier(.23,1,.32,1) 240ms, height 0.7s cubic-bezier(.23,1,.32,1) 240ms;"><title>5&ndash;6: 440 tracts</title></rect>
+<rect class="ac-bar" x="330.7" y="188.0" width="42.6" height="0" rx="3" fill="#ff5722" data-y="14.0" data-h="174.0" style="transition:y 0.7s cubic-bezier(.23,1,.32,1) 300ms, height 0.7s cubic-bezier(.23,1,.32,1) 300ms;"><title>6&ndash;7: 435 tracts</title></rect>
+<rect class="ac-bar" x="386.7" y="188.0" width="42.6" height="0" rx="3" fill="#e64a19" data-y="162.4" data-h="25.6" style="transition:y 0.7s cubic-bezier(.23,1,.32,1) 360ms, height 0.7s cubic-bezier(.23,1,.32,1) 360ms;"><title>7&ndash;8: 64 tracts</title></rect>
+<rect class="ac-bar" x="442.7" y="188.0" width="42.6" height="0" rx="3" fill="#d84315" data-y="182.8" data-h="5.2" style="transition:y 0.7s cubic-bezier(.23,1,.32,1) 420ms, height 0.7s cubic-bezier(.23,1,.32,1) 420ms;"><title>8&ndash;9: 13 tracts</title></rect>
+<rect class="ac-bar" x="498.7" y="188.0" width="42.6" height="0" rx="3" fill="#bf360c" data-y="186.8" data-h="1.2" style="transition:y 0.7s cubic-bezier(.23,1,.32,1) 480ms, height 0.7s cubic-bezier(.23,1,.32,1) 480ms;"><title>9&ndash;10: 3 tracts</title></rect>
+<text class="ac-axis-label" x="72.0" y="206" text-anchor="middle">1</text>
+<text class="ac-axis-label" x="128.0" y="206" text-anchor="middle">2</text>
+<text class="ac-axis-label" x="184.0" y="206" text-anchor="middle">3</text>
+<text class="ac-axis-label" x="240.0" y="206" text-anchor="middle">4</text>
+<text class="ac-axis-label" x="296.0" y="206" text-anchor="middle">5</text>
+<text class="ac-axis-label" x="352.0" y="206" text-anchor="middle">6</text>
+<text class="ac-axis-label" x="408.0" y="206" text-anchor="middle">7</text>
+<text class="ac-axis-label" x="464.0" y="206" text-anchor="middle">8</text>
+<text class="ac-axis-label" x="520.0" y="206" text-anchor="middle">9</text>
+</svg>
+</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- KEY FINDINGS ═════════════════════════════════ -->
+  <section id="findings">
+    <div class="findings-inner">
+
+      <div class="findings-header reveal">
+        <span class="label-mono">Key Findings</span>
+        <h2 class="findings-section-title">What the data shows.</h2>
+      </div>
+
+      <div class="findings-grid">
+        <div class="finding-card reveal">
+          <span class="finding-number">Finding 01</span>
+          <p class="finding-text">Sants-Montjuic is Barcelona's most heat-stressed district, driven by dense building fabric, extensive impervious surfaces and critically low vegetation cover across most of its census tracts.</p>
+        </div>
+        <div class="finding-card reveal reveal-delay-1">
+          <span class="finding-number">Finding 02</span>
+          <p class="finding-text">Coolest areas: Tracts adjacent to Collserola park and the coast score below 3, confirming the cooling effect of large green spaces and proximity to the sea.</p>
+        </div>
+        <div class="finding-card reveal reveal-delay-2">
+          <span class="finding-number">Finding 03</span>
+          <p class="finding-text">Temperature gap: A 7 degree Celsius difference exists between the hottest and coolest tracts, demonstrating severe intra-city inequality in heat exposure.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DATA SOURCE ══════════════════════════════════ -->
+  <section id="data-source">
+    <div class="data-source-inner">
+
+      <div class="data-source-header reveal">
+        <span class="label-mono">Data Source</span>
+        <h2 class="data-source-section-title">Where the data comes from.</h2>
+      </div>
+
+      <div class="glass-card source-card reveal">
+        <div class="source-grid">
+          <div class="source-item">
+            <span class="source-item-label">Satellite</span>
+            <span class="source-item-value">Landsat Collection 1 Level-1</span>
+          </div>
+          <div class="source-item">
+            <span class="source-item-label">Band</span>
+            <span class="source-item-value">B10 Thermal Infrared</span>
+          </div>
+          <div class="source-item">
+            <span class="source-item-label">Formula</span>
+            <span class="source-item-value source-formula">LST = BT - 273.15 °C</span>
+          </div>
+          <div class="source-item">
+            <span class="source-item-label">Resolution</span>
+            <span class="source-item-value">30 m, resampled to census tract via zonal statistics</span>
+          </div>
+          <div class="source-item">
+            <span class="source-item-label">Period</span>
+            <span class="source-item-value">June, July, August 2023</span>
+          </div>
+          <div class="source-item">
+            <span class="source-item-label">Access</span>
+            <span class="source-item-value">NASA Earthdata, free and open</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row reveal">
+        <a href="methodology.html" class="btn-back">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M10 2L2 10M2 10H8M2 10V4"/>
+          </svg>
+          Back to Methodology
+        </a>
+        <a href="ugpi_interactive_map.html" class="btn-launch">
+          Launch Map
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M2 10L10 2M10 2H4M10 2V8"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER ═══════════════════════════════════════ -->
+  <footer>
+    <p class="footer-copy">
+      Urban Greening Priority Index. ESADE PAIBS Project 2025-2026. Built with Sentinel-2, Landsat and Barcelona Open Data. Summer 2023 (most recent complete season).
+    </p>
+    <div class="footer-links">
+      <a href="https://sentinel.esa.int/web/sentinel/missions/sentinel-2" target="_blank" rel="noopener">Sentinel-2 NDVI</a>
+      <a href="https://landsat.gsfc.nasa.gov/" target="_blank" rel="noopener">Landsat LST</a>
+      <a href="https://opendata-ajuntament.barcelona.cat/" target="_blank" rel="noopener">Open Data BCN</a>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.10 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // Temperature bar + counter
+    let tempAnimated = false;
+    const tempObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !tempAnimated) {
+          tempAnimated = true;
+
+          const bar = document.getElementById('temp-bar');
+          const hotVal = document.getElementById('temp-hot-val');
+
+          if (bar) setTimeout(() => { bar.style.width = '100%'; }, 200);
+
+          if (hotVal) {
+            setTimeout(() => {
+              const unit = hotVal.querySelector('span');
+              const textNode = document.createTextNode('29.1');
+              hotVal.innerHTML = '';
+              hotVal.appendChild(textNode);
+              if (unit) hotVal.appendChild(unit);
+              const start = performance.now();
+              const duration = 1600;
+              (function tick(now) {
+                const t = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - t, 3);
+                textNode.textContent = (29.1 + eased * (36.1 - 29.1)).toFixed(1);
+                if (t < 1) requestAnimationFrame(tick);
+                else textNode.textContent = '36.1';
+              })(start);
+            }, 300);
+          }
+
+          tempObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+
+    const tempViz = document.getElementById('temp-viz');
+    if (tempViz) tempObs.observe(tempViz);
+
+    // Distribution bars
+    let barsAnimated = false;
+    const barObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !barsAnimated) {
+          barsAnimated = true;
+
+          const fills = document.querySelectorAll('#bar-chart .bar-fill');
+          fills.forEach((fill, i) => {
+            setTimeout(() => {
+              fill.style.width = fill.dataset.width + '%';
+            }, i * 80);
+          });
+
+          barObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    const chart = document.getElementById('bar-chart');
+    if (chart) barObs.observe(chart);
+  </script>
+
+<script>
+(function() {
+  // Scroll progress bar
+  var bar = document.getElementById('scroll-progress');
+  if (bar) {
+    window.addEventListener('scroll', function() {
+      var s = document.documentElement.scrollTop || document.body.scrollTop;
+      var t = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      bar.style.width = (t > 0 ? s / t * 100 : 0) + '%';
+    }, { passive: true });
+  }
+
+  // Area chart bar animation
+  var chartEl = document.getElementById('area-chart-svg');
+  if (!chartEl) return;
+  var obs = new IntersectionObserver(function(entries) {
+    if (!entries[0].isIntersecting) return;
+    obs.disconnect();
+    chartEl.querySelectorAll('.ac-bar').forEach(function(rect) {
+      var targetY = parseFloat(rect.dataset.y);
+      var targetH = parseFloat(rect.dataset.h);
+      rect.setAttribute('y', targetY);
+      rect.setAttribute('height', targetH);
+    });
+  }, { threshold: 0.3 });
+  obs.observe(chartEl);
+})();
+</script>
+
+</body>
+</html>

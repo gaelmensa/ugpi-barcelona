@@ -1,0 +1,95 @@
+[
+  {
+    "label": "June 2023",
+    "raw": {
+      "data": [
+        {
+          "interval": {
+            "from": "2023-06-01T00:00:00Z",
+            "to": "2023-07-01T00:00:00Z"
+          },
+          "outputs": {
+            "ndvi": {
+              "bands": {
+                "B0": {
+                  "stats": {
+                    "min": -1.0,
+                    "max": 0.8837617039680481,
+                    "mean": 0.21168499161411383,
+                    "stDev": 0.2825030726832226,
+                    "sampleCount": 28800,
+                    "noDataCount": 1329
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "status": "OK",
+      "geometryPixelCount": 28800
+    }
+  },
+  {
+    "label": "July 2023",
+    "raw": {
+      "data": [
+        {
+          "interval": {
+            "from": "2023-07-01T00:00:00Z",
+            "to": "2023-08-01T00:00:00Z"
+          },
+          "outputs": {
+            "ndvi": {
+              "bands": {
+                "B0": {
+                  "stats": {
+                    "min": -1.0,
+                    "max": 0.9174099564552307,
+                    "mean": 0.20465970777923362,
+                    "stDev": 0.2410000376874259,
+                    "sampleCount": 28800,
+                    "noDataCount": 2219
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "status": "OK",
+      "geometryPixelCount": 28800
+    }
+  },
+  {
+    "label": "August 2023",
+    "raw": {
+      "data": [
+        {
+          "interval": {
+            "from": "2023-08-01T00:00:00Z",
+            "to": "2023-09-01T00:00:00Z"
+          },
+          "outputs": {
+            "ndvi": {
+              "bands": {
+                "B0": {
+                  "stats": {
+                    "min": -1.0,
+                    "max": 1.0,
+                    "mean": 0.21007889018527853,
+                    "stDev": 0.3021243693075056,
+                    "sampleCount": 28800,
+                    "noDataCount": 77
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "status": "OK",
+      "geometryPixelCount": 28800
+    }
+  }
+]
