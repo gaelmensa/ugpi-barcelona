@@ -188,6 +188,58 @@
       font-size: 14px; line-height: 22px; color: var(--on-surface-variant);
     }
 
+    /* STAKEHOLDER VOICES */
+    #stakeholders { padding: 128px 48px; }
+    .stakeholder-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 56px;
+    }
+    .stakeholder-card {
+      padding: 40px 36px; border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      display: flex; flex-direction: column; gap: 28px;
+    }
+    .stakeholder-card.health-card {
+      border-top: 3px solid #7eb8d4;
+    }
+    .stakeholder-card.community-card {
+      border-top: 3px solid var(--primary);
+    }
+    .sk-quote-mark {
+      font-family: 'Inter', sans-serif; font-size: 64px; font-weight: 700;
+      line-height: 0.7; opacity: 0.25;
+    }
+    .health-card .sk-quote-mark { color: #7eb8d4; }
+    .community-card .sk-quote-mark { color: var(--primary); }
+    .sk-quote-text {
+      font-size: 18px; font-weight: 500; line-height: 30px;
+      color: var(--on-surface); font-style: italic;
+    }
+    .sk-attribution { display: flex; flex-direction: column; gap: 4px; }
+    .sk-name {
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      color: var(--on-surface);
+    }
+    .sk-role {
+      font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase; color: var(--outline);
+    }
+    .sk-finding {
+      padding: 18px 20px; border-radius: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .sk-finding-label {
+      font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .health-card .sk-finding-label { color: #7eb8d4; }
+    .community-card .sk-finding-label { color: var(--primary); }
+    .sk-finding-text {
+      font-size: 13px; line-height: 21px; color: var(--on-surface-variant);
+    }
+
     /* PROBLEM STATEMENT */
     #problem { padding: 128px 48px; }
     .problem-grid {
@@ -347,8 +399,8 @@
     @media (max-width: 960px) {
       nav { padding: 0 24px; }
       .nav-links { display: none; }
-      #hero, #interview, #problem, #competitors, #value-prop, #business, #innovation { padding: 72px 24px; }
-      .interview-grid, .business-grid { grid-template-columns: 1fr; gap: 40px; }
+      #hero, #interview, #stakeholders, #problem, #competitors, #value-prop, #business, #innovation { padding: 72px 24px; }
+      .interview-grid, .business-grid, .stakeholder-grid { grid-template-columns: 1fr; gap: 40px; }
       .problem-grid, .innovation-cards { grid-template-columns: 1fr; }
       .table-wrap { font-size: 12px; }
       footer { padding: 32px 24px; }
@@ -434,10 +486,10 @@
         Built on evidence,<br>not assumption.
       </h1>
       <p class="hero-subtitle reveal">
-        The UGPI is validated through expert interviews, a rigorous competitive landscape analysis and a financially grounded business model designed for B2G deployment in Barcelona and beyond.
+        The UGPI is validated through three independent interviews spanning technical expertise, frontline health practice, and lived community experience, combined with a competitive landscape analysis and a financially grounded B2G business model.
       </p>
       <div class="hero-pills-row reveal">
-        <div class="stat-pill"><span class="stat-pill-dot"></span>Expert Interview Conducted</div>
+        <div class="stat-pill"><span class="stat-pill-dot"></span>3 Stakeholder Interviews</div>
         <div class="stat-pill"><span class="stat-pill-dot"></span>5 Alternatives Assessed</div>
         <div class="stat-pill"><span class="stat-pill-dot"></span>0 Data Cost</div>
       </div>
@@ -448,9 +500,9 @@
   <section id="interview">
     <div class="section-inner">
       <div class="reveal">
-        <span class="label-mono">Expert Interview</span>
+        <span class="label-mono">Technical Expert Interview</span>
         <h2 class="section-title" style="margin-top:16px;">Validated by a domain expert.</h2>
-        <p class="section-subtitle">In November 2024 we interviewed Davoud Omarzadeh, Research Manager at the Institut d'Estudis Espacials de Catalunya (IEEC), recommended by Professor Marc Herrera. The interview validated the core concept and shaped key design decisions in the UGPI.</p>
+        <p class="section-subtitle">In November 2024 we interviewed Davoud Omarzadeh, Research Manager at the Institut d'Estudis Espacials de Catalunya (IEEC), recommended by Professor Marc Herrera. He validated the core concept and the technical approach, and shaped key design decisions in the UGPI.</p>
       </div>
       <div class="interview-grid">
         <div class="quote-block reveal">
@@ -490,6 +542,52 @@
               <p class="finding-title">Next validation step: Ajuntament de Barcelona</p>
               <p class="finding-desc">He recommended presenting a complete tool proposal to the Ajuntament de Barcelona urban planning department and ASPB before approaching them for user testing, which shaped our build-first approach.</p>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAKEHOLDER VOICES -->
+  <section id="stakeholders">
+    <div class="section-inner">
+      <div class="reveal">
+        <span class="label-mono">User and Community Research</span>
+        <h2 class="section-title" style="margin-top:16px;">Validated by those who feel it daily.</h2>
+        <p class="section-subtitle">Beyond the technical expert, we interviewed a community resident and a frontline health professional. Both independently confirmed that the problem the UGPI addresses is not theoretical.</p>
+      </div>
+      <div class="stakeholder-grid">
+        <div class="stakeholder-card community-card reveal">
+          <div>
+            <div class="sk-quote-mark">"</div>
+            <p class="sk-quote-text" style="margin-top:16px;">"The street, instead of being a place to walk, feels like an enemy. And we have no shade, no trees, nothing to protect us from the heat."</p>
+          </div>
+          <div style="margin-top:4px; display:flex; flex-direction:column; gap:6px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.07);">
+            <p class="sk-quote-text" style="font-size:15px; margin-top:0;">"They are expelling us, the older people, from the city. It used to be ours too."</p>
+          </div>
+          <div class="sk-attribution">
+            <p class="sk-name">Rosa Tabeni</p>
+            <p class="sk-role">Retired resident, Eixample district</p>
+            <p class="sk-role" style="margin-top:2px;">Interview conducted November 2024</p>
+          </div>
+          <div class="sk-finding">
+            <p class="sk-finding-label">Key insight</p>
+            <p class="sk-finding-text">As a 72-year-old resident of Eixample, one of Barcelona's densest and hottest districts, Rosa described summer heat as a daily barrier to mobility and social life. Her account directly validates the social vulnerability layer: elderly residents in low-canopy areas face disproportionate harm that the UGPI is designed to surface and prioritise.</p>
+          </div>
+        </div>
+        <div class="stakeholder-card health-card reveal reveal-delay-1">
+          <div>
+            <div class="sk-quote-mark">"</div>
+            <p class="sk-quote-text" style="margin-top:16px;">"From a health point of view, the best strategy is to target areas where you have both high exposure and high vulnerability. Those are the places where a single intervention saves the most lives."</p>
+          </div>
+          <div class="sk-attribution" style="margin-top:4px;">
+            <p class="sk-name">Dr. Jose Zorrilla</p>
+            <p class="sk-role">Emergency Medicine Physician, Althaia Hospital, Manresa</p>
+            <p class="sk-role" style="margin-top:2px;">Interview conducted November 2024</p>
+          </div>
+          <div class="sk-finding">
+            <p class="sk-finding-label">Key insight</p>
+            <p class="sk-finding-text">Dr. Zorrilla confirmed that heat-related emergency presentations peak in dense urban neighbourhoods with older populations and described the clinical burden of heat stress on the healthcare system. His framing of "high exposure and high vulnerability" is the precise logic embedded in the UGPI composite score, independently validating the dual-axis prioritisation approach.</p>
           </div>
         </div>
       </div>
