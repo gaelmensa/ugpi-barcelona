@@ -24,6 +24,9 @@
     html { scroll-behavior: smooth; }
     body {
       background: var(--bg);
+      background-image: radial-gradient(circle, rgba(180,204,187,0.055) 1px, transparent 1px);
+      background-size: 36px 36px;
+      background-attachment: fixed;
       color: var(--on-surface);
       font-family: 'Inter', sans-serif;
       font-size: 16px;
@@ -121,6 +124,7 @@
 
     /* PROJECT CONTEXT */
     #context {
+      position: relative; overflow: hidden;
       background: var(--surface-container);
       border-top: 1px solid rgba(255,255,255,0.06);
       border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -145,7 +149,8 @@
     .fact-value { font-size: 15px; font-weight: 500; color: var(--on-surface); line-height: 1.4; }
 
     /* GUIDING QUESTION */
-    #question { padding: 128px 48px; }
+    #question {
+      position: relative; overflow: hidden; padding: 128px 48px; }
     .question-card {
       margin-top: 56px; padding: 64px 52px;
       border-left: 3px solid var(--primary);
@@ -164,6 +169,7 @@
 
     /* TEAM */
     #team {
+      position: relative; overflow: hidden;
       background: var(--surface-container);
       border-top: 1px solid rgba(255,255,255,0.06);
       border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -180,13 +186,14 @@
       text-align: center;
     }
     .team-avatar {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: linear-gradient(135deg, rgba(180,204,187,0.2), rgba(160,212,141,0.1));
-      border: 1px solid rgba(180,204,187,0.25);
-      display: flex; align-items: center; justify-content: center;
+      width: 80px; height: 80px; border-radius: 50%;
+      border: 2px solid rgba(180,204,187,0.30);
       margin: 0 auto;
-      font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 700;
-      color: var(--primary);
+      overflow: hidden; flex-shrink: 0;
+    }
+    .team-avatar img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top;
+      display: block;
     }
     .team-name {
       font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
@@ -217,7 +224,8 @@
     .advisor-role { font-size: 12px; color: var(--outline); line-height: 1.4; }
 
     /* TIMELINE */
-    #timeline { padding: 128px 48px; }
+    #timeline {
+      position: relative; overflow: hidden; padding: 128px 48px; }
     .timeline-list { display: flex; flex-direction: column; gap: 0; margin-top: 56px; max-width: 820px; }
     .timeline-item {
       display: grid; grid-template-columns: 140px 1fr; gap: 40px;
@@ -248,6 +256,7 @@
 
     /* ACKNOWLEDGEMENTS */
     #ack {
+      position: relative; overflow: hidden;
       background: var(--surface-container);
       border-top: 1px solid rgba(255,255,255,0.06);
       border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -324,6 +333,12 @@
 }
 .nav-dd li a:hover { background: rgba(255,255,255,0.06) !important; color: var(--primary) !important; }
 .nav-dd-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+/* Barcelona skyline background */
+.bcn-skyline-bg {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  width: 100%; height: auto; pointer-events: none; z-index: 0;
+}
 </style>
 </head>
 <body>
@@ -358,6 +373,7 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-glow"></div>
+  <svg aria-hidden="true" class="bcn-skyline-bg" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(180,204,187,0.08)" d="M0,220 L0,138 C18,118 48,92 88,78 C128,64 155,80 175,108 L192,132 L205,148 L218,143 L226,150 L234,143 L242,150 L250,143 L258,148 L265,148 L265,55 L268,42 L271,55 L271,148 L282,140 L292,133 L302,140 L312,133 L322,140 L332,133 L342,140 L352,133 L362,140 L375,132 L385,138 L395,128 L405,135 L415,128 L425,135 L435,128 L442,132 L445,132 L445,115 L450,115 L450,90 L452,76 L454,62 L456,76 L458,90 L458,115 L462,115 L462,90 L464,78 L466,65 L468,78 L470,90 L470,115 L474,115 L474,90 L476,76 L478,62 L480,76 L482,90 L482,115 L486,115 L486,90 L488,78 L490,65 L492,78 L494,90 L494,115 L498,118 L504,115 L504,88 L506,72 L509,55 L512,72 L514,88 L514,115 L516,115 L516,90 L518,75 L521,58 L524,75 L526,90 L526,115 L528,115 L528,90 L530,75 L533,58 L536,75 L538,90 L538,115 L540,115 L540,90 L542,75 L545,60 L548,75 L550,90 L550,115 L554,115 L554,90 L556,75 L559,58 L562,75 L564,90 L564,115 L568,115 L568,132 L565,128 L575,120 L585,128 L595,120 L605,128 L615,120 L625,128 L635,120 L645,128 L655,135 L665,128 L675,135 L685,128 L695,135 L705,128 L715,132 L718,128 L718,105 C718,78 720,52 728,40 C734,31 740,30 746,38 C752,46 754,72 754,105 L754,128 L765,122 L778,112 L790,118 L805,108 L818,115 L830,108 L842,115 L852,122 L865,130 L875,122 L885,130 L898,138 L908,130 L918,138 L928,130 L938,138 L948,132 L958,138 L968,132 L978,138 L988,132 L998,140 L1008,132 L1018,140 L1028,135 L1038,140 L1048,135 L1058,142 L1068,135 L1078,140 C1100,132 1128,118 1158,108 C1188,98 1222,92 1255,88 L1260,88 L1260,60 L1262,48 L1264,38 L1266,48 L1266,60 L1268,55 L1270,42 L1272,32 L1274,42 L1274,55 L1276,60 L1280,88 C1310,82 1345,90 1375,104 C1400,114 1425,128 1440,138 L1440,220 Z"/></svg>
     <div class="hero-inner">
       <div class="reveal"><span class="label-mono">About the Project</span></div>
       <h1 class="hero-display reveal">
@@ -371,6 +387,7 @@
 
   <!-- PROJECT CONTEXT -->
   <section id="context">
+  <div style="position:absolute;bottom:0;right:0;width:320px;height:320px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><line x1="0" y1="80"  x2="400" y2="80"  stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="0" y1="160" x2="400" y2="160" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="0" y1="240" x2="400" y2="240" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="0" y1="320" x2="400" y2="320" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="80"  y1="0" x2="80"  y2="400" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="160" y1="0" x2="160" y2="400" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="240" y1="0" x2="240" y2="400" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="320" y1="0" x2="320" y2="400" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><!-- chamfered corners --><line x1="60"  y1="80"  x2="80"  y2="60"  stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="160" y1="60"  x2="140" y2="80"  stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="60"  y1="160" x2="80"  y2="140" stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="160" y1="140" x2="140" y2="160" stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="240" y1="60"  x2="220" y2="80"  stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="320" y1="60"  x2="300" y2="80"  stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="240" y1="140" x2="220" y2="160" stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="320" y1="140" x2="300" y2="160" stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/></svg></div>
     <div class="section-inner">
       <div class="reveal">
         <span class="label-mono">Project Context</span>
@@ -411,6 +428,7 @@
 
   <!-- GUIDING QUESTION -->
   <section id="question">
+  <div style="position:absolute;top:30px;right:30px;width:200px;height:160px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><text x="0" y="140" font-family="Georgia,serif" font-size="200" fill="#b4ccbb" opacity="0.06">"</text></svg></div>
     <div class="section-inner">
       <div class="reveal">
         <span class="label-mono">Research Question</span>
@@ -426,6 +444,7 @@
 
   <!-- TEAM -->
   <section id="team">
+  <div style="position:absolute;bottom:0;right:0;width:380px;height:300px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><line x1="80" y1="200" x2="180" y2="140" stroke="#7eb8d4" stroke-width="0.9" opacity="0.15"/><line x1="180" y1="140" x2="290" y2="190" stroke="#7eb8d4" stroke-width="0.9" opacity="0.15"/><line x1="290" y1="190" x2="380" y2="90" stroke="#7eb8d4" stroke-width="0.9" opacity="0.12"/><line x1="180" y1="140" x2="240" y2="60" stroke="#7eb8d4" stroke-width="0.9" opacity="0.12"/><line x1="80" y1="200" x2="150" y2="270" stroke="#7eb8d4" stroke-width="0.9" opacity="0.12"/><line x1="150" y1="270" x2="290" y2="190" stroke="#7eb8d4" stroke-width="0.9" opacity="0.10"/><line x1="240" y1="60" x2="380" y2="90" stroke="#7eb8d4" stroke-width="0.9" opacity="0.10"/><circle cx="80"  cy="200" r="5" fill="#7eb8d4" opacity="0.25"/><circle cx="180" cy="140" r="5" fill="#7eb8d4" opacity="0.25"/><circle cx="290" cy="190" r="5" fill="#7eb8d4" opacity="0.25"/><circle cx="380" cy="90"  r="5" fill="#7eb8d4" opacity="0.20"/><circle cx="150" cy="270" r="5" fill="#7eb8d4" opacity="0.20"/><circle cx="240" cy="60"  r="5" fill="#7eb8d4" opacity="0.20"/></svg></div>
     <div class="section-inner">
       <div class="reveal">
         <span class="label-mono">The Team</span>
@@ -433,27 +452,27 @@
       </div>
       <div class="team-grid">
         <div class="team-card reveal">
-          <div class="team-avatar">NA</div>
+          <div class="team-avatar"><img src="images/narcis.png" alt="Narcis Agusti"/></div>
           <p class="team-name">Narcis Agusti</p>
           <p class="team-role">ESADE PAIBS 2025-26</p>
         </div>
         <div class="team-card reveal reveal-delay-1">
-          <div class="team-avatar">AB</div>
+          <div class="team-avatar"><img src="images/albert.png" alt="Albert Blade"/></div>
           <p class="team-name">Albert Blade</p>
           <p class="team-role">ESADE PAIBS 2025-26</p>
         </div>
         <div class="team-card reveal reveal-delay-2">
-          <div class="team-avatar">YG</div>
+          <div class="team-avatar"><img src="images/yago.png" alt="Yago Granada"/></div>
           <p class="team-name">Yago Granada</p>
           <p class="team-role">ESADE PAIBS 2025-26</p>
         </div>
         <div class="team-card reveal reveal-delay-3">
-          <div class="team-avatar">GM</div>
+          <div class="team-avatar"><img src="images/gael.png" alt="Gael Mensa"/></div>
           <p class="team-name">Gael Mensa</p>
           <p class="team-role">ESADE PAIBS 2025-26</p>
         </div>
         <div class="team-card reveal reveal-delay-4">
-          <div class="team-avatar">VP</div>
+          <div class="team-avatar"><img src="images/victor.png" alt="Victor Perez"/></div>
           <p class="team-name">Victor Perez</p>
           <p class="team-role">ESADE PAIBS 2025-26</p>
         </div>
@@ -490,6 +509,7 @@
 
   <!-- TIMELINE -->
   <section id="timeline">
+  <div style="position:absolute;top:0;left:0;width:40px;height:100%;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 40 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><line x1="20" y1="0" x2="20" y2="500" stroke="#b4ccbb" stroke-width="1" opacity="0.15" stroke-dasharray="4 6"/><circle cx="20" cy="50"  r="4" fill="#b4ccbb" opacity="0.20"/><circle cx="20" cy="150" r="4" fill="#b4ccbb" opacity="0.18"/><circle cx="20" cy="250" r="4" fill="#b4ccbb" opacity="0.16"/><circle cx="20" cy="350" r="4" fill="#b4ccbb" opacity="0.15"/><circle cx="20" cy="450" r="4" fill="#b4ccbb" opacity="0.14"/></svg></div>
     <div class="section-inner">
       <div class="reveal">
         <span class="label-mono">Project Timeline</span>
@@ -542,6 +562,7 @@
 
   <!-- ACKNOWLEDGEMENTS -->
   <section id="ack">
+  <div style="position:absolute;bottom:0;right:0;width:520px;height:240px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 600 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><path d="M0,240 Q150,210 300,170 Q450,130 600,150" stroke="#b4ccbb" stroke-width="0.9" opacity="0.13"/><path d="M0,270 Q150,240 300,200 Q450,160 600,180" stroke="#b4ccbb" stroke-width="0.9" opacity="0.11"/><path d="M0,210 Q150,180 300,140 Q450,100 600,120" stroke="#b4ccbb" stroke-width="0.9" opacity="0.11"/><path d="M0,180 Q150,150 300,110 Q450,70 600,90"  stroke="#b4ccbb" stroke-width="0.9" opacity="0.09"/><path d="M0,150 Q150,120 300,80 Q450,40 600,60"   stroke="#b4ccbb" stroke-width="0.9" opacity="0.08"/></svg></div>
     <div class="section-inner">
       <div class="reveal">
         <span class="label-mono">Acknowledgements</span>

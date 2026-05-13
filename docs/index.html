@@ -27,6 +27,9 @@
 
     body {
       background: var(--bg);
+      background-image: radial-gradient(circle, rgba(180,204,187,0.055) 1px, transparent 1px);
+      background-size: 36px 36px;
+      background-attachment: fixed;
       color: var(--on-surface);
       font-family: 'Inter', sans-serif;
       font-size: 16px;
@@ -286,6 +289,7 @@
 
     /* ─────────────────────── THE CHALLENGE ── */
     #challenge {
+      position: relative; overflow: hidden;
       padding: 128px 48px;
     }
 
@@ -356,6 +360,7 @@
 
     /* ──────────────────────── CAPABILITIES ── */
     #capabilities {
+      position: relative; overflow: hidden;
       padding: 128px 48px;
       background: linear-gradient(180deg, transparent 0%, rgba(180,204,187,0.03) 40%, transparent 100%);
     }
@@ -440,6 +445,7 @@
 
     /* ─────────────────────────── VALIDATION ── */
     #validation {
+      position: relative; overflow: hidden;
       padding: 128px 48px;
     }
 
@@ -532,6 +538,7 @@
 
     /* ──────────────────────────────── CTA ── */
     #documentation {
+      position: relative; overflow: hidden;
       padding: 160px 48px;
       text-align: center;
       position: relative;
@@ -877,6 +884,12 @@
 }
 .nav-dd li a:hover { background: rgba(255,255,255,0.06) !important; color: var(--primary) !important; }
 .nav-dd-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+/* Barcelona skyline background */
+.bcn-skyline-bg {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  width: 100%; height: auto; pointer-events: none; z-index: 0;
+}
 </style>
 </head>
 <body>
@@ -911,6 +924,7 @@
   <!-- HERO ═════════════════════════════════════ -->
   <section id="index">
     <div class="hero-glow-a"></div>
+  <svg aria-hidden="true" class="bcn-skyline-bg" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(180,204,187,0.08)" d="M0,220 L0,138 C18,118 48,92 88,78 C128,64 155,80 175,108 L192,132 L205,148 L218,143 L228,150 L228,84 L231,84 L231,150 L240,150 L248,143 L258,150 L260,150 L260,74 L263,74 L263,150 L272,148 L265,148 L265,55 L268,42 L271,55 L271,148 L282,140 L292,133 L302,140 L312,133 L322,140 L332,133 L342,140 L352,133 L362,140 L375,132 L385,138 L395,128 L405,135 L415,128 L425,135 L435,128 L442,132 L445,132 L445,115 L450,115 L450,92 L452,78 L454,65 L456,78 L458,92 L458,115 L462,115 L462,92 L464,80 L466,68 L468,80 L470,92 L470,115 L474,115 L474,92 L476,78 L478,65 L480,78 L482,92 L482,115 L486,115 L486,92 L488,80 L490,68 L492,80 L494,92 L494,115 L498,120 L506,120 L506,115 L506,90 L508,75 L511,60 L514,75 L516,90 L516,115 L518,115 L518,90 L520,73 L523,55 L526,73 L528,90 L528,115 L530,115 L530,90 L532,75 L535,60 L538,75 L540,90 L540,115 L542,115 L542,90 L544,73 L547,55 L550,73 L552,90 L552,115 L556,115 L556,132 L565,128 L575,120 L585,128 L595,120 L605,128 L615,120 L625,128 L635,120 L645,128 L655,135 L665,128 L675,135 L685,128 L695,135 L705,128 L715,132 L718,128 L718,105 C718,78 720,52 728,40 C734,31 740,30 746,38 C752,46 754,72 754,105 L754,128 L765,122 L778,112 L790,118 L805,108 L818,115 L830,108 L842,115 L852,122 L865,130 L875,122 L885,130 L898,138 L908,130 L918,138 L928,130 L938,138 L948,132 L958,138 L968,132 L978,138 L988,132 L998,140 L1008,132 L1018,140 L1028,135 L1038,140 L1048,135 L1058,142 L1068,135 L1078,140 C1100,132 1128,118 1158,108 C1188,98 1222,92 L1248,90 L1248,42 L1250,28 L1252,42 L1252,90 C1268,88 1290,88 1320,95 C1360,105 1400,120 1440,138 L1440,220 Z"/></svg>
     <div class="hero-glow-b"></div>
     <div class="hero-inner">
       <div class="hero-text">
@@ -1121,6 +1135,7 @@
 
   <!-- THE CHALLENGE ════════════════════════════ -->
   <section id="challenge">
+  <div style="position:absolute;bottom:0;right:0;width:400px;height:320px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><ellipse cx="380" cy="350" rx="310" ry="220" stroke="#ff7043" stroke-width="1.2" opacity="0.12"/><ellipse cx="380" cy="350" rx="245" ry="175" stroke="#ff7043" stroke-width="1.2" opacity="0.10"/><ellipse cx="380" cy="350" rx="180" ry="130" stroke="#ff7043" stroke-width="1.2" opacity="0.09"/><ellipse cx="380" cy="350" rx="115" ry="85" stroke="#ff7043" stroke-width="1.2" opacity="0.08"/><ellipse cx="380" cy="350" rx="55" ry="42" stroke="#ff7043" stroke-width="1.2" opacity="0.07"/></svg></div>
     <div class="section-inner">
 
       <div class="section-header reveal">
@@ -1156,6 +1171,7 @@
 
   <!-- CAPABILITIES ═════════════════════════════ -->
   <section id="capabilities">
+  <div style="position:absolute;top:20px;right:30px;width:150px;height:150px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><rect x="75" y="85" width="50" height="30" rx="4" stroke="#b4ccbb" stroke-width="1.2" opacity="0.20"/><rect x="10" y="92" width="60" height="16" rx="2" stroke="#b4ccbb" stroke-width="1.2" opacity="0.18"/><rect x="130" y="92" width="60" height="16" rx="2" stroke="#b4ccbb" stroke-width="1.2" opacity="0.18"/><line x1="23"  y1="92" x2="23"  y2="108" stroke="#b4ccbb" stroke-width="0.8" opacity="0.15"/><line x1="40"  y1="92" x2="40"  y2="108" stroke="#b4ccbb" stroke-width="0.8" opacity="0.15"/><line x1="57"  y1="92" x2="57"  y2="108" stroke="#b4ccbb" stroke-width="0.8" opacity="0.15"/><line x1="143" y1="92" x2="143" y2="108" stroke="#b4ccbb" stroke-width="0.8" opacity="0.15"/><line x1="160" y1="92" x2="160" y2="108" stroke="#b4ccbb" stroke-width="0.8" opacity="0.15"/><line x1="177" y1="92" x2="177" y2="108" stroke="#b4ccbb" stroke-width="0.8" opacity="0.15"/><path d="M95,85 C95,62 105,62 105,85" stroke="#b4ccbb" stroke-width="1" opacity="0.20"/><line x1="100" y1="85" x2="100" y2="55" stroke="#b4ccbb" stroke-width="1" opacity="0.18"/><path d="M100,55 L135,18" stroke="#b4ccbb" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.15"/><path d="M100,55 L148,30" stroke="#b4ccbb" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.12"/><path d="M100,55 L130,10" stroke="#b4ccbb" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.10"/></svg></div>
     <div class="section-inner">
 
       <div class="section-header reveal">
@@ -1279,6 +1295,7 @@
 
   <!-- VALIDATION ═══════════════════════════════ -->
   <section id="validation">
+  <div style="position:absolute;top:30px;right:30px;width:200px;height:160px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><text x="0" y="140" font-family="Georgia,serif" font-size="200" fill="#b4ccbb" opacity="0.06">"</text></svg></div>
     <div class="section-inner">
 
       <div class="section-header reveal">
@@ -1336,6 +1353,7 @@
 
   <!-- CTA ══════════════════════════════════════ -->
   <section id="documentation">
+  <div style="position:absolute;bottom:0;right:0;width:440px;height:260px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><path d="M0,80 Q120,40 240,80 Q360,120 500,80"  stroke="#b4ccbb" stroke-width="1" opacity="0.12"/><path d="M0,140 Q120,100 240,140 Q360,180 500,140" stroke="#b4ccbb" stroke-width="1" opacity="0.10"/><path d="M0,200 Q120,160 240,200 Q360,240 500,200" stroke="#b4ccbb" stroke-width="1" opacity="0.09"/><path d="M0,260 Q120,220 240,260 Q360,300 500,260" stroke="#b4ccbb" stroke-width="1" opacity="0.08"/><circle cx="240" cy="80"  r="3.5" fill="#b4ccbb" opacity="0.20"/><circle cx="240" cy="140" r="3.5" fill="#b4ccbb" opacity="0.18"/><circle cx="240" cy="200" r="3.5" fill="#b4ccbb" opacity="0.16"/><circle cx="120" cy="40"  r="2.5" fill="#b4ccbb" opacity="0.15"/><circle cx="360" cy="120" r="2.5" fill="#b4ccbb" opacity="0.15"/></svg></div>
     <div class="cta-glow"></div>
     <div class="cta-inner reveal">
       <span class="label-mono">Ready to Explore?</span>

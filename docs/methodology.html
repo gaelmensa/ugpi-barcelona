@@ -27,6 +27,9 @@
 
     body {
       background: var(--bg);
+      background-image: radial-gradient(circle, rgba(180,204,187,0.055) 1px, transparent 1px);
+      background-size: 36px 36px;
+      background-attachment: fixed;
       color: var(--on-surface);
       font-family: 'Inter', sans-serif;
       font-size: 16px;
@@ -211,6 +214,7 @@
 
     /* ──────────────────────────── FORMULA ─────── */
     #formula {
+      position: relative; overflow: hidden;
       background: var(--surface-container);
       border-top: 1px solid rgba(255,255,255,0.06);
       border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -879,6 +883,12 @@
   0%,100% { r: 28; }
   50%      { r: 31; }
 }
+
+/* Barcelona skyline background */
+.bcn-skyline-bg {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  width: 100%; height: auto; pointer-events: none; z-index: 0;
+}
 </style>
 </head>
 <body>
@@ -913,6 +923,7 @@
   <!-- HERO ═════════════════════════════════════════ -->
   <section id="hero">
     <div class="hero-glow-a"></div>
+  <svg aria-hidden="true" class="bcn-skyline-bg" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(180,204,187,0.07)" d="M0,220 L0,138 C18,118 48,92 88,78 C128,64 155,80 175,108 L192,132 L205,148 L218,143 L226,150 L234,143 L242,150 L250,143 L258,148 L265,148 L265,55 L268,42 L271,55 L271,148 L282,140 L292,133 L302,140 L312,133 L322,140 L332,133 L342,140 L352,133 L362,140 L375,128 L385,122 L395,115 L405,122 L415,115 L425,122 L435,115 L442,120 L445,132 L445,115 L450,115 L450,92 L452,78 L454,65 L456,78 L458,92 L458,115 L462,115 L462,92 L464,80 L466,68 L468,80 L470,92 L470,115 L474,115 L474,92 L476,78 L478,65 L480,78 L482,92 L482,115 L486,115 L486,92 L488,80 L490,68 L492,80 L494,92 L494,115 L498,120 L506,120 L506,115 L506,90 L508,75 L511,60 L514,75 L516,90 L516,115 L518,115 L518,90 L520,73 L523,55 L526,73 L528,90 L528,115 L530,115 L530,90 L532,75 L535,60 L538,75 L540,90 L540,115 L542,115 L542,90 L544,73 L547,55 L550,73 L552,90 L552,115 L556,115 L556,132 L565,128 L575,120 L585,128 L595,120 L605,128 L615,120 L625,128 L635,120 L645,128 L655,128 L665,120 L675,128 L685,120 L695,128 L705,120 L715,125 L718,126 L718,100 C718,68 720,38 728,22 C734,10 740,8 746,16 C752,24 754,58 754,100 L754,126 L765,118 L778,105 L790,112 L805,98 L818,105 L830,95 L845,102 L858,112 L865,130 L875,122 L885,130 L898,138 L908,130 L918,138 L928,130 L938,138 L948,132 L958,138 L968,132 L978,138 L988,132 L998,140 L1008,132 L1018,140 L1028,135 L1038,140 L1048,135 L1058,142 L1068,135 L1078,140 C1100,132 1128,118 1158,108 C1188,98 1222,92 L1248,90 L1248,42 L1250,28 L1252,42 L1252,90 C1268,88 1290,88 1320,95 C1360,105 1400,120 1440,138 L1440,220 Z"/></svg>
     <div class="hero-glow-b"></div>
     <div class="hero-inner">
       <div class="hero-text">
@@ -1005,6 +1016,7 @@
 
   <!-- FORMULA ══════════════════════════════════════ -->
   <section id="formula">
+  <div style="position:absolute;bottom:0;right:0;width:320px;height:320px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><line x1="0" y1="80"  x2="400" y2="80"  stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="0" y1="160" x2="400" y2="160" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="0" y1="240" x2="400" y2="240" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="0" y1="320" x2="400" y2="320" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="80"  y1="0" x2="80"  y2="400" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="160" y1="0" x2="160" y2="400" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="240" y1="0" x2="240" y2="400" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><line x1="320" y1="0" x2="320" y2="400" stroke="#b4ccbb" stroke-width="0.8" opacity="0.14"/><!-- chamfered corners --><line x1="60"  y1="80"  x2="80"  y2="60"  stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="160" y1="60"  x2="140" y2="80"  stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="60"  y1="160" x2="80"  y2="140" stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="160" y1="140" x2="140" y2="160" stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="240" y1="60"  x2="220" y2="80"  stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="320" y1="60"  x2="300" y2="80"  stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="240" y1="140" x2="220" y2="160" stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/><line x1="320" y1="140" x2="300" y2="160" stroke="#b4ccbb" stroke-width="0.8" opacity="0.12"/></svg></div>
     <div class="formula-inner">
 
       <div class="formula-section-header reveal">

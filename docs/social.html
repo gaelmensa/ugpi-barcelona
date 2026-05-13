@@ -30,6 +30,9 @@
 
     body {
       background: var(--bg);
+      background-image: radial-gradient(circle, rgba(180,204,187,0.055) 1px, transparent 1px);
+      background-size: 36px 36px;
+      background-attachment: fixed;
       color: var(--on-surface);
       font-family: 'Inter', sans-serif;
       font-size: 16px;
@@ -235,6 +238,7 @@
 
     /* ── WHAT IT MEASURES ── */
     #what {
+      position: relative; overflow: hidden;
       background: var(--surface-container);
       border-top: 1px solid rgba(255,255,255,0.06);
       border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -371,7 +375,7 @@
     }
 
     /* ── SCORE DISTRIBUTION ── */
-    #distribution { padding: 128px 48px; }
+    #distribution { position: relative; overflow: hidden; padding: 128px 48px; }
 
     .distribution-inner { max-width: 1200px; margin: 0 auto; }
 
@@ -441,6 +445,7 @@
 
     /* ── KEY FINDINGS ── */
     #findings {
+      position: relative; overflow: hidden;
       background: var(--surface-container);
       border-top: 1px solid rgba(255,255,255,0.06);
       border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -496,7 +501,7 @@
     }
 
     /* ── DATA SOURCE ── */
-    #data-source { padding: 128px 48px; }
+    #data-source { position: relative; overflow: hidden; padding: 128px 48px; }
 
     .data-source-inner { max-width: 1200px; margin: 0 auto; }
 
@@ -707,6 +712,7 @@
 }
 .nav-dd li a:hover { background: rgba(255,255,255,0.06) !important; color: var(--primary) !important; }
 .nav-dd-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.bcn-skyline-bg { position: absolute; bottom: 0; left: 0; right: 0; width: 100%; height: auto; pointer-events: none; z-index: 0; }
 </style>
 </head>
 <body>
@@ -742,6 +748,7 @@
   <section id="hero" style="position:relative; overflow:hidden;">
     <div class="hero-glow-social"></div>
     <div class="hero-glow-social-b"></div>
+    <svg aria-hidden="true" class="bcn-skyline-bg" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(126,184,212,0.07)" d="M0,220 L0,158 C22,145 55,135 88,128 C108,124 125,125 138,132 L150,140 L160,132 L168,125 L178,132 L188,140 L198,148 L210,140 L222,148 L232,140 L242,135 L242,85 L245,85 L245,135 L255,135 L263,128 L273,135 L275,135 L275,78 L278,78 L278,135 L287,130 L280,130 L280,55 L283,42 L286,55 L286,130 L295,122 L304,116 L312,122 L320,112 L330,122 L340,112 L352,122 L362,115 L374,120 L385,112 L395,118 L405,112 L415,118 L425,122 L428,122 L428,105 L432,105 L432,82 L434,70 L436,58 L438,70 L440,82 L440,105 L444,105 L444,82 L446,70 L448,58 L450,70 L452,82 L452,105 L456,105 L456,82 L458,70 L460,58 L462,70 L464,82 L464,105 L468,108 L478,108 L478,105 L478,78 L480,62 L483,42 L486,62 L488,78 L488,105 L490,105 L490,78 L492,60 L495,38 L498,60 L500,78 L500,105 L502,105 L502,78 L504,62 L507,42 L510,62 L512,78 L512,105 L516,108 L524,118 L535,110 L548,102 L562,108 L575,100 L588,108 L602,100 L615,108 L628,115 L640,108 L655,115 L668,108 L680,115 L690,110 L690,86 C690,58 692,35 700,22 C706,12 712,11 718,18 C724,26 726,52 726,86 L726,110 L738,104 L752,95 L766,102 L780,95 L794,102 L808,110 L820,118 L835,126 L848,118 L862,126 L875,118 L888,125 L900,118 L912,125 L925,118 L938,125 C962,115 995,102 1030,92 C1068,82 1112,76 1158,72 C1205,68 1255,74 1298,88 C1338,100 1380,116 1415,130 C1428,135 1436,138 1440,140 L1440,220 Z"/></svg>
     <div class="hero-inner">
 
       <div class="hero-label reveal">
@@ -817,6 +824,7 @@
 
   <!-- WHAT IT MEASURES ═════════════════════════════ -->
   <section id="what">
+  <div style="position:absolute;bottom:0;right:0;width:380px;height:300px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><line x1="80" y1="200" x2="180" y2="140" stroke="#7eb8d4" stroke-width="0.9" opacity="0.15"/><line x1="180" y1="140" x2="290" y2="190" stroke="#7eb8d4" stroke-width="0.9" opacity="0.15"/><line x1="290" y1="190" x2="380" y2="90" stroke="#7eb8d4" stroke-width="0.9" opacity="0.12"/><line x1="180" y1="140" x2="240" y2="60" stroke="#7eb8d4" stroke-width="0.9" opacity="0.12"/><line x1="80" y1="200" x2="150" y2="270" stroke="#7eb8d4" stroke-width="0.9" opacity="0.12"/><line x1="150" y1="270" x2="290" y2="190" stroke="#7eb8d4" stroke-width="0.9" opacity="0.10"/><line x1="240" y1="60" x2="380" y2="90" stroke="#7eb8d4" stroke-width="0.9" opacity="0.10"/><circle cx="80"  cy="200" r="5" fill="#7eb8d4" opacity="0.25"/><circle cx="180" cy="140" r="5" fill="#7eb8d4" opacity="0.25"/><circle cx="290" cy="190" r="5" fill="#7eb8d4" opacity="0.25"/><circle cx="380" cy="90"  r="5" fill="#7eb8d4" opacity="0.20"/><circle cx="150" cy="270" r="5" fill="#7eb8d4" opacity="0.20"/><circle cx="240" cy="60"  r="5" fill="#7eb8d4" opacity="0.20"/></svg></div>
     <div class="what-inner">
 
       <div class="what-col-left reveal">
@@ -864,6 +872,7 @@
 
   <!-- SCORE DISTRIBUTION ═══════════════════════════ -->
   <section id="distribution">
+  <div style="position:absolute;bottom:0;left:0;width:300px;height:200px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 340 220" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><circle cx="60"  cy="60"  r="22" stroke="#7eb8d4" stroke-width="1.0" opacity="0.16"/><path d="M28,180 C28,126 92,126 92,180"  stroke="#7eb8d4" stroke-width="1.0" opacity="0.16"/><circle cx="160" cy="55"  r="22" stroke="#7eb8d4" stroke-width="1.0" opacity="0.14"/><path d="M128,180 C128,122 192,122 192,180" stroke="#7eb8d4" stroke-width="1.0" opacity="0.14"/><circle cx="260" cy="62"  r="22" stroke="#7eb8d4" stroke-width="1.0" opacity="0.12"/><path d="M228,180 C228,128 292,128 292,180" stroke="#7eb8d4" stroke-width="1.0" opacity="0.12"/><line x1="92"  y1="126" x2="128" y2="122" stroke="#7eb8d4" stroke-width="0.7" stroke-dasharray="3 4" opacity="0.14"/><line x1="192" y1="122" x2="228" y2="128" stroke="#7eb8d4" stroke-width="0.7" stroke-dasharray="3 4" opacity="0.12"/><line x1="0" y1="200" x2="340" y2="200" stroke="#7eb8d4" stroke-width="0.7" opacity="0.12"/></svg></div>
     <div class="distribution-inner">
 
       <div class="dist-header reveal">
@@ -912,6 +921,7 @@
 
   <!-- KEY FINDINGS ═════════════════════════════════ -->
   <section id="findings">
+  <div style="position:absolute;bottom:0;right:0;width:400px;height:180px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 440 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><circle cx="55"  cy="55"  r="20" stroke="#7eb8d4" stroke-width="1.2" opacity="0.18"/><path d="M22,170 C22,118 88,118 88,170"  stroke="#7eb8d4" stroke-width="1.2" opacity="0.18"/><circle cx="155" cy="50"  r="20" stroke="#7eb8d4" stroke-width="1.2" opacity="0.16"/><path d="M122,170 C122,113 188,113 188,170" stroke="#7eb8d4" stroke-width="1.2" opacity="0.16"/><circle cx="255" cy="58"  r="20" stroke="#7eb8d4" stroke-width="1.2" opacity="0.14"/><path d="M222,170 C222,121 288,121 288,170" stroke="#7eb8d4" stroke-width="1.2" opacity="0.14"/><circle cx="355" cy="52"  r="20" stroke="#7eb8d4" stroke-width="1.2" opacity="0.13"/><path d="M322,170 C322,115 388,115 388,170" stroke="#7eb8d4" stroke-width="1.2" opacity="0.13"/><line x1="88"  y1="118" x2="122" y2="113" stroke="#7eb8d4" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.14"/><line x1="188" y1="113" x2="222" y2="121" stroke="#7eb8d4" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.12"/><line x1="288" y1="121" x2="322" y2="115" stroke="#7eb8d4" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.12"/></svg></div>
     <div class="findings-inner">
 
       <div class="findings-header reveal">
@@ -939,6 +949,7 @@
 
   <!-- DATA SOURCE ══════════════════════════════════ -->
   <section id="data-source">
+  <div style="position:absolute;top:20px;right:20px;width:200px;height:180px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><ellipse cx="120" cy="100" rx="90" ry="45" stroke="#7eb8d4" stroke-width="0.9" opacity="0.14" stroke-dasharray="4 5"/><ellipse cx="120" cy="100" rx="110" ry="60" stroke="#7eb8d4" stroke-width="0.9" opacity="0.10" stroke-dasharray="4 5"/><circle cx="120" cy="100" r="12" fill="#7eb8d4" opacity="0.14"/><circle cx="120" cy="100" r="5" fill="#7eb8d4" opacity="0.22"/><line x1="120" y1="88" x2="120" y2="55" stroke="#7eb8d4" stroke-width="0.8" opacity="0.14"/><line x1="108" y1="100" x2="30"  y2="100" stroke="#7eb8d4" stroke-width="0.8" opacity="0.12" stroke-dasharray="3 4"/><line x1="132" y1="100" x2="210" y2="100" stroke="#7eb8d4" stroke-width="0.8" opacity="0.12" stroke-dasharray="3 4"/></svg></div>
     <div class="data-source-inner">
 
       <div class="data-source-header reveal">

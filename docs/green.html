@@ -30,6 +30,9 @@
 
     body {
       background: var(--bg);
+      background-image: radial-gradient(circle, rgba(180,204,187,0.055) 1px, transparent 1px);
+      background-size: 36px 36px;
+      background-attachment: fixed;
       color: var(--on-surface);
       font-family: 'Inter', sans-serif;
       font-size: 16px;
@@ -235,6 +238,7 @@
 
     /* ── WHAT IT MEASURES ── */
     #what {
+      position: relative; overflow: hidden;
       background: var(--surface-container);
       border-top: 1px solid rgba(255,255,255,0.06);
       border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -369,6 +373,7 @@
 
     /* ── SCORE DISTRIBUTION ── */
     #distribution {
+      position: relative; overflow: hidden;
       padding: 128px 48px;
     }
 
@@ -443,6 +448,7 @@
 
     /* ── KEY FINDINGS ── */
     #findings {
+      position: relative; overflow: hidden;
       background: var(--surface-container);
       border-top: 1px solid rgba(255,255,255,0.06);
       border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -498,7 +504,7 @@
     }
 
     /* ── DATA SOURCE ── */
-    #data-source { padding: 128px 48px; }
+    #data-source { position: relative; overflow: hidden; padding: 128px 48px; }
 
     .data-source-inner { max-width: 1200px; margin: 0 auto; }
 
@@ -713,6 +719,7 @@
 }
 .nav-dd li a:hover { background: rgba(255,255,255,0.06) !important; color: var(--primary) !important; }
 .nav-dd-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.bcn-skyline-bg { position: absolute; bottom: 0; left: 0; right: 0; width: 100%; height: auto; pointer-events: none; z-index: 0; }
 </style>
 </head>
 <body>
@@ -748,6 +755,7 @@
   <section id="hero" style="position:relative; overflow:hidden;">
     <div class="hero-glow-green"></div>
     <div class="hero-glow-green-b"></div>
+    <svg aria-hidden="true" class="bcn-skyline-bg" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(160,212,141,0.07)" d="M0,220 L0,148 C12,135 28,128 55,118 C70,112 88,110 105,116 L118,122 L126,112 L134,108 L142,112 L150,120 L162,132 L172,128 L185,135 L195,125 L205,132 L218,142 L228,135 L235,140 L235,90 L238,90 L238,140 L248,140 L256,132 L266,140 L268,140 L268,72 L271,72 L271,140 L280,136 L273,136 L273,48 L276,35 L279,48 L279,136 L288,128 L296,122 L304,128 L312,118 L322,128 L332,118 L342,128 L355,120 L368,126 L378,116 L388,122 L398,116 L408,122 L420,126 L424,126 L424,108 L428,108 L428,85 L430,72 L432,58 L434,72 L436,85 L436,108 L440,108 L440,85 L442,72 L444,60 L446,72 L448,85 L448,108 L452,108 L452,85 L454,72 L456,60 L458,72 L460,85 L460,108 L464,108 L464,85 L466,72 L468,60 L470,72 L472,85 L472,108 L476,112 L484,112 L484,108 L484,82 L486,65 L489,45 L492,65 L494,82 L494,108 L496,108 L496,82 L498,62 L501,38 L504,62 L506,82 L506,108 L508,108 L508,82 L510,65 L513,45 L516,65 L518,82 L518,108 L522,108 L522,125 L530,118 L542,108 L555,115 L568,105 L580,112 L595,105 L608,112 L622,105 L635,112 L648,118 L660,110 L674,118 L688,110 L700,118 L712,112 L712,88 C712,62 714,40 722,28 C728,18 734,17 740,24 C746,32 748,58 748,88 L748,112 L760,105 L775,95 L789,103 L804,95 L818,100 L832,108 L848,115 L862,108 L875,115 L890,124 L902,115 L915,122 L925,115 L938,122 L952,115 L968,122 L982,115 L998,122 C1025,112 1058,98 1092,88 C1128,78 1168,72 1210,68 C1255,64 1302,70 1340,84 C1372,96 1408,112 1440,125 L1440,220 Z"/></svg>
     <div class="hero-inner">
 
       <div class="hero-label reveal">
@@ -828,6 +836,7 @@
 
   <!-- WHAT IT MEASURES ═════════════════════════════ -->
   <section id="what">
+  <div style="position:absolute;top:0;right:0;width:320px;height:100%;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 360 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><path d="M300,40 C275,10 225,5 210,35 C195,65 230,95 275,82 Z" fill="#a0d48d" opacity="0.12"/><line x1="210" y1="35" x2="300" y2="40" stroke="#a0d48d" stroke-width="0.8" opacity="0.12"/><path d="M340,130 C315,100 265,95 250,125 C235,155 270,185 315,172 Z" fill="#a0d48d" opacity="0.10"/><line x1="250" y1="125" x2="340" y2="130" stroke="#a0d48d" stroke-width="0.8" opacity="0.10"/><path d="M310,240 C285,210 235,205 220,235 C205,265 240,295 285,282 Z" fill="#a0d48d" opacity="0.09"/><line x1="220" y1="235" x2="310" y2="240" stroke="#a0d48d" stroke-width="0.8" opacity="0.09"/><path d="M240,60 C220,40 190,38 182,55 C174,72 192,88 218,80 Z" fill="#a0d48d" opacity="0.08"/><path d="M190,180 C170,160 140,158 132,175 C124,192 142,208 168,200 Z" fill="#a0d48d" opacity="0.07"/></svg></div>
     <div class="what-inner">
 
       <div class="what-col-left reveal">
@@ -866,6 +875,7 @@
 
   <!-- SCORE DISTRIBUTION ═══════════════════════════ -->
   <section id="distribution">
+  <div style="position:absolute;bottom:0;right:0;width:300px;height:220px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 340 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><path d="M320,120 C280,80 220,60 200,90 C180,120 220,155 280,140 Z" fill="#a0d48d" opacity="0.12"/><path d="M280,60 C240,25 185,10 168,40 C151,70 188,105 248,90 Z" fill="#a0d48d" opacity="0.10"/><path d="M340,195 C298,158 238,140 218,172 C198,204 240,238 300,222 Z" fill="#a0d48d" opacity="0.09"/><line x1="200" y1="90" x2="168" y2="40" stroke="#a0d48d" stroke-width="0.8" opacity="0.12" stroke-dasharray="3 4"/><line x1="200" y1="90" x2="218" y2="172" stroke="#a0d48d" stroke-width="0.8" opacity="0.10" stroke-dasharray="3 4"/></svg></div>
     <div class="distribution-inner">
 
       <div class="dist-header reveal">
@@ -914,6 +924,7 @@
 
   <!-- KEY FINDINGS ═════════════════════════════════ -->
   <section id="findings">
+  <div style="position:absolute;bottom:0;right:0;width:520px;height:240px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 600 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><path d="M0,240 Q150,210 300,170 Q450,130 600,150" stroke="#b4ccbb" stroke-width="0.9" opacity="0.13"/><path d="M0,270 Q150,240 300,200 Q450,160 600,180" stroke="#b4ccbb" stroke-width="0.9" opacity="0.11"/><path d="M0,210 Q150,180 300,140 Q450,100 600,120" stroke="#b4ccbb" stroke-width="0.9" opacity="0.11"/><path d="M0,180 Q150,150 300,110 Q450,70 600,90"  stroke="#b4ccbb" stroke-width="0.9" opacity="0.09"/><path d="M0,150 Q150,120 300,80 Q450,40 600,60"   stroke="#b4ccbb" stroke-width="0.9" opacity="0.08"/></svg></div>
     <div class="findings-inner">
 
       <div class="findings-header reveal">
@@ -941,6 +952,7 @@
 
   <!-- DATA SOURCE ══════════════════════════════════ -->
   <section id="data-source">
+  <div style="position:absolute;top:20px;right:20px;width:200px;height:180px;pointer-events:none;z-index:0;overflow:hidden;"><svg aria-hidden="true" viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><ellipse cx="120" cy="100" rx="90" ry="45" stroke="#a0d48d" stroke-width="0.9" opacity="0.14" stroke-dasharray="4 5"/><ellipse cx="120" cy="100" rx="110" ry="60" stroke="#a0d48d" stroke-width="0.9" opacity="0.10" stroke-dasharray="4 5"/><circle cx="120" cy="100" r="12" fill="#a0d48d" opacity="0.14"/><circle cx="120" cy="100" r="5" fill="#a0d48d" opacity="0.22"/><line x1="120" y1="88" x2="120" y2="55" stroke="#a0d48d" stroke-width="0.8" opacity="0.14"/><line x1="108" y1="100" x2="30"  y2="100" stroke="#a0d48d" stroke-width="0.8" opacity="0.12" stroke-dasharray="3 4"/><line x1="132" y1="100" x2="210" y2="100" stroke="#a0d48d" stroke-width="0.8" opacity="0.12" stroke-dasharray="3 4"/></svg></div>
     <div class="data-source-inner">
 
       <div class="data-source-header reveal">
