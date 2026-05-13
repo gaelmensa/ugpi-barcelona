@@ -557,7 +557,8 @@
     };
     var seen = false;
     try { seen = !!localStorage.getItem('ugpi_welcome_v2'); } catch(e) {}
-    if (!seen) {
+    var forceHowTo = window.location.search.indexOf('howto=1') !== -1;
+    if (!seen || forceHowTo) {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', function() { setTimeout(_showWelcome, 250); });
         } else {
